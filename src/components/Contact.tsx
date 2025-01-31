@@ -7,28 +7,50 @@ import React from 'react';
 import emailjs from '@emailjs/browser';
 import SectionTitle from './SectionTitle';
 
+/**
+ * Type definition for form errors
+ */
 type FormErrors = {
   name?: string;
   email?: string;
   message?: string;
 };
 
+/**
+ * Contact Component
+ * 
+ * A comprehensive contact section with social links and contact form.
+ * Features:
+ * - Interactive social media links with hover effects
+ * - Animated contact form with validation
+ * - Success/error message handling
+ * - Theme-aware styling
+ */
 export default function Contact() {
   const { theme } = useTheme();
-  const formRef = useRef<HTMLFormElement>(null);
+  
+  // Form state management
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: '',
+    message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errors, setErrors] = useState<FormErrors>({});
 
+  // Form reference for emailjs
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // Initialize emailjs
   useEffect(() => {
     emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
   }, []);
 
+  /**
+   * Validates the form data
+   * Returns true if the form is valid, false otherwise
+   */
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
     
@@ -52,6 +74,10 @@ export default function Contact() {
     return Object.keys(newErrors).length === 0;
   };
 
+  /**
+   * Handles form input changes
+   * Updates form state while maintaining immutability
+   */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     const fieldMap: { [key: string]: string } = {
@@ -74,6 +100,10 @@ export default function Contact() {
     }
   };
 
+  /**
+   * Handles form submission
+   * Validates inputs and processes the form data
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -106,12 +136,14 @@ export default function Contact() {
     }
   };
 
+  // Input classes for styling
   const inputClasses = `w-full px-4 py-2 rounded-lg border transition-all duration-300 ${
     theme === 'dark'
       ? 'bg-gray-800/50 border-gray-700 text-white placeholder-gray-400'
       : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
   } focus:outline-none focus:ring-2 focus:ring-blue-500`;
 
+  // Error classes for styling
   const errorClasses = "text-red-500 text-sm mt-1";
 
   return (

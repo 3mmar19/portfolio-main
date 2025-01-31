@@ -3,17 +3,44 @@ import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { FaGithub, FaLinkedinIn, FaTwitter, FaHeart } from 'react-icons/fa';
 
+/**
+ * Footer Component
+ * 
+ * A responsive footer section with social links and copyright information.
+ * Features:
+ * - Animated social media links with hover effects
+ * - Theme-aware styling
+ * - Responsive layout for all screen sizes
+ * - Dynamic copyright year
+ */
 const Footer = () => {
+  // Get current theme from ThemeContext
   const { theme } = useTheme();
+
+  // Get current year for copyright
   const currentYear = new Date().getFullYear();
 
+  // Social media links configuration
   const socialLinks = [
-    { name: 'GitHub', href: 'https://github.com/3mmar19', icon: FaGithub },
-    { name: 'LinkedIn', href: 'https://linkedin.com/in/3mmar', icon: FaLinkedinIn },
-    { name: 'Twitter', href: 'https://twitter.com/3mmar_dev', icon: FaTwitter },
+    { 
+      name: 'GitHub', 
+      href: 'https://github.com/3mmar19', 
+      icon: FaGithub 
+    },
+    { 
+      name: 'LinkedIn', 
+      href: 'https://linkedin.com/in/3mmar', 
+      icon: FaLinkedinIn 
+    },
+    { 
+      name: 'Twitter', 
+      href: 'https://twitter.com/3mmar_dev', 
+      icon: FaTwitter 
+    },
   ];
 
   return (
+    // Footer container with theme-aware styling
     <footer className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}`}>
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -33,6 +60,7 @@ const Footer = () => {
             </h3>
             <div className="flex justify-center md:justify-end space-x-4">
               {socialLinks.map((social) => (
+                // Animated social media link with hover effect
                 <motion.a
                   key={social.name}
                   href={social.href}

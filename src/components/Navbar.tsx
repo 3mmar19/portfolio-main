@@ -14,12 +14,22 @@ import {
 } from '@heroicons/react/24/outline';
 import { useTheme } from '../context/ThemeContext';
 
+/**
+ * Interface for navigation items
+ * Defines the structure for each navigation link
+ * including name, href, and associated icon
+ */
 interface NavItem {
   name: string;
   href: string;
   icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
 }
 
+/**
+ * Navigation items configuration
+ * Defines the main navigation links and their properties
+ * Each item includes a name, anchor link, and Heroicon component
+ */
 const navigation: NavItem[] = [
   { name: 'Home', href: '#home', icon: HomeIcon },
   { name: 'About', href: '#about', icon: UserIcon },
@@ -28,7 +38,9 @@ const navigation: NavItem[] = [
   { name: 'Contact', href: '#contact', icon: EnvelopeIcon },
 ];
 
-// Reusable animation variants
+/**
+ * Reusable animation variants for theme toggle
+ */
 const ThemeToggle = ({ isMobile = false }: { isMobile?: boolean }) => {
   const { theme, toggleTheme } = useTheme();
   const spring = {
@@ -154,7 +166,9 @@ const ThemeToggle = ({ isMobile = false }: { isMobile?: boolean }) => {
   );
 };
 
-// Reusable style classes
+/**
+ * Reusable style classes for navigation links
+ */
 const getThemeClasses = (theme: string) => ({
   active: theme === 'dark'
     ? 'text-white bg-blue-500/10 border border-blue-400/30'
@@ -167,6 +181,9 @@ const getThemeClasses = (theme: string) => ({
     : 'bg-white/80 border-gray-200 shadow-lg shadow-gray-200/30'
 });
 
+/**
+ * Interface for navigation link props
+ */
 interface NavLinkProps {
   item: NavItem;
   isMobile?: boolean;
@@ -174,6 +191,9 @@ interface NavLinkProps {
   onMobileClick?: () => void;
 }
 
+/**
+ * Navigation link component
+ */
 const NavLink: React.FC<NavLinkProps> = ({ item, isMobile = false, activeSection, onMobileClick }) => {
   const { theme } = useTheme();
   const themeClasses = getThemeClasses(theme);
@@ -197,6 +217,9 @@ const NavLink: React.FC<NavLinkProps> = ({ item, isMobile = false, activeSection
   );
 };
 
+/**
+ * Navbar component
+ */
 export default function Navbar() {
   const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);

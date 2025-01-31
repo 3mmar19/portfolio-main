@@ -6,9 +6,21 @@ import { FaGithub, FaLinkedinIn, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
 
+/**
+ * Hero Component
+ * 
+ * The main landing section of the portfolio website.
+ * Features:
+ * - Animated text reveal effects
+ * - Interactive social media links
+ * - Downloadable resume button
+ * - Responsive design with dynamic layout
+ * - Theme-aware styling and animations
+ */
 export default function Hero() {
   const { theme } = useTheme();
 
+  // Animation variants for container elements
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -20,6 +32,7 @@ export default function Hero() {
     }
   };
 
+  // Animation variants for text elements
   const itemVariants = {
     hidden: { opacity: 0, y: 60 },
     visible: { 
@@ -33,12 +46,14 @@ export default function Hero() {
     }
   };
 
+  // Social media links configuration
   const socialLinks = [
     { name: 'GitHub', href: 'https://github.com/3mmar19', icon: FaGithub },
     { name: 'LinkedIn', href: 'https://linkedin.com/in/3mmar', icon: FaLinkedinIn },
     { name: 'Twitter', href: 'https://twitter.com/3mmarHus', icon: FaTwitter },
   ];
 
+  // Scroll to about section function
   const scrollToAbout = () => {
     const aboutSection = document.getElementById('about');
     if (aboutSection) {

@@ -6,19 +6,31 @@ import { FaDownload } from 'react-icons/fa6';
 import React from 'react';
 import SectionTitle from './SectionTitle';
 
+/**
+ * About Component
+ * 
+ * A comprehensive section showcasing professional background and skills.
+ * Features:
+ * - Animated content cards with hover effects
+ * - Responsive grid layout
+ * - Interactive resume download button
+ * - Skills categorization with visual indicators
+ */
 export default function About() {
   const { theme } = useTheme();
 
+  // Animation variants for staggered children animations
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.2, // Delay between each child animation
       },
     },
   };
 
+  // Animation variants for individual items
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -30,9 +42,10 @@ export default function About() {
     },
   };
 
+  // Animation for the download icon
   const downloadIconVariants = {
     animate: { 
-      y: [0, -4, 0],
+      y: [0, -4, 0], // Floating animation
       transition: {
         duration: 1.5,
         repeat: Infinity,
@@ -41,6 +54,7 @@ export default function About() {
     }
   };
 
+  // Animation variants for content cards
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
@@ -61,12 +75,14 @@ export default function About() {
   return (
     <section id="about" className="py-20 relative bg-transparent">
       <div className="container mx-auto px-4">
+        {/* Section title with custom gradient colors */}
         <SectionTitle 
           title="About Me" 
           fromColor="from-blue-400"
           toColor="to-blue-600"
         />
         
+        {/* Main content grid */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -74,8 +90,10 @@ export default function About() {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start"
         >
+          {/* Left column: Personal introduction */}
           <div className="space-y-8">
             <motion.div variants={itemVariants} className="space-y-6 text-center md:text-left">
+              {/* Professional title */}
               <h3 className={`text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r
                 ${theme === 'dark' 
                   ? 'from-gray-100 to-gray-300' 
@@ -83,7 +101,9 @@ export default function About() {
                 Computer Science Graduate & Full Stack Developer
               </h3>
               
+              {/* Bio cards */}
               <div className="space-y-4">
+                {/* Introduction card */}
                 <motion.div 
                   className={`relative backdrop-blur-md rounded-xl p-6 
                     ${theme === 'dark' 
@@ -102,6 +122,7 @@ export default function About() {
                   </p>
                 </motion.div>
 
+                {/* Additional info card */}
                 <motion.div 
                   className={`relative backdrop-blur-md rounded-xl p-6
                     ${theme === 'dark' 
@@ -123,6 +144,7 @@ export default function About() {
               </div>
             </motion.div>
 
+            {/* Resume download button */}
             <motion.div variants={itemVariants} className="flex justify-center md:justify-start">
               <motion.a
                 href="/resume/Ammar-Resume.pdf"
@@ -150,10 +172,12 @@ export default function About() {
             </motion.div>
           </div>
 
+          {/* Right column: Skills grid */}
           <motion.div
             variants={containerVariants}
             className="grid grid-cols-2 gap-6"
           >
+            {/* Skills categories */}
             {[
               {
                 title: 'Frontend',
