@@ -64,6 +64,7 @@ export default function Education() {
   const textColor = theme === 'dark' ? 'text-gray-100' : 'text-gray-900';
   const textColorSecondary = theme === 'dark' ? 'text-gray-300' : 'text-gray-600';
   const iconBg = theme === 'dark' ? 'bg-gray-800/50' : 'bg-gray-100';
+  const iconColor = theme === 'dark' ? 'text-gray-200' : 'text-gray-700';
   const honorsBg = theme === 'dark' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : 'bg-blue-100 text-blue-800 border-blue-200';
   const tagBg = theme === 'dark' ? 'bg-gray-800/50 border-gray-700/50 text-gray-300' : 'bg-gray-100 border-gray-200 text-gray-700';
 
@@ -105,7 +106,7 @@ export default function Education() {
                     {/* Icon */}
                     <div className={`w-16 h-16 rounded-full ${iconBg} flex items-center justify-center mb-6
                       transition-colors duration-300`}>
-                      <AcademicCapIcon className="w-8 h-8" />
+                      <AcademicCapIcon className={`w-8 h-8 ${iconColor}`} />
                     </div>
                     
                     {/* Degree title */}

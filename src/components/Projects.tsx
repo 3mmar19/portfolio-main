@@ -234,7 +234,7 @@ export default function Projects() {
     
     return (
       <div
-        className={`h-full rounded-2xl shadow-xl p-6 md:p-8 border-2
+        className={`h-full rounded-2xl shadow-xl p-2 md:p-8 border-2
                    transition-all duration-500 transform hover:scale-[1.02] 
                    ${getBorderColor(index)}
                    ${theme === 'dark' 
@@ -242,7 +242,7 @@ export default function Projects() {
                      : 'bg-white/90'
                    }`}
       >
-        <div className="flex flex-col gap-3 h-full">
+        <div className="flex flex-col gap-1 h-full">
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-3">
               {/* Project icon */}

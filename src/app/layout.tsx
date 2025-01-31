@@ -1,6 +1,6 @@
 'use client';
 
-import { Inter } from 'next/font/google';
+import { Cormorant_Garamond, Domine, Harmattan } from 'next/font/google';
 import { ThemeProvider, useTheme } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
@@ -8,8 +8,24 @@ import { usePathname } from 'next/navigation';
 import { AnimatePresence } from 'framer-motion';
 import './globals.css';
 
-// Initialize Inter font with Latin subset
-const inter = Inter({ subsets: ['latin'] });
+// Initialize fonts with Latin subset
+const cormorantGaramond = Cormorant_Garamond({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-cormorant',
+});
+
+const domine = Domine({ 
+  subsets: ['latin'],
+  variable: '--font-domine',
+});
+
+const harmattan = Harmattan({ 
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-harmattan',
+});
 
 // Type definition for animated background particles
 type Particle = {
@@ -327,8 +343,16 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Full Stack Developer Portfolio" />
       </head>
-      {/* Apply global styles and theme-specific classes */}
-      <body className={`${inter.className} bg-gray-900 text-white overflow-x-hidden`} suppressHydrationWarning>
+      <body 
+        className={`
+          ${cormorantGaramond.variable} 
+          ${domine.variable} 
+          ${harmattan.variable} 
+          font-cormorant
+          bg-gray-900 text-white overflow-x-hidden
+        `} 
+        suppressHydrationWarning
+      >
         <ThemeProvider>
           <MainLayout>{children}</MainLayout>
         </ThemeProvider>

@@ -48,9 +48,9 @@ export default function Hero() {
 
   // Social media links configuration
   const socialLinks = [
-    { name: 'GitHub', href: 'https://github.com/3mmar19', icon: FaGithub },
-    { name: 'LinkedIn', href: 'https://linkedin.com/in/3mmar', icon: FaLinkedinIn },
-    { name: 'Twitter', href: 'https://twitter.com/3mmarHus', icon: FaTwitter },
+    { name: 'GitHub', url: 'https://github.com/3mmar19', icon: FaGithub },
+    { name: 'LinkedIn', url: 'https://linkedin.com/in/3mmar', icon: FaLinkedinIn },
+    { name: 'Twitter', url: 'https://twitter.com/3mmarHus', icon: FaTwitter },
   ];
 
   // Scroll to about section function
@@ -158,11 +158,7 @@ export default function Hero() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-r ${theme === 'dark' ? 'from-blue-500/20 to-blue-400/20' : 'from-blue-500 to-blue-400'} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                  <div className="absolute -inset-[1px] rounded-lg overflow-hidden">
-                    <div className={`absolute inset-[-10px] bg-[conic-gradient(from_0deg,transparent_0_45deg,${theme === 'dark' ? '#60a5fa' : '#3b82f6'}_45deg_135deg,transparent_135deg_360deg)] animate-[spin_2s_linear_infinite] opacity-70`} />
-                  </div>
-                  <FolderIcon className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 mr-2 group-hover:rotate-6 transition-transform duration-300" />
+                  <FolderIcon className="w-7 h-7 sm:w-6 sm:h-6 relative z-10 mr-2 group-hover:rotate-6 transition-transform duration-300" />
                   <span className="relative z-10 text-center text-sm sm:text-base group-hover:translate-x-1 transition-transform duration-300">Browse Projects</span>
                 </motion.a>
                 <motion.a
@@ -176,10 +172,6 @@ export default function Hero() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-r ${theme === 'dark' ? 'from-green-500/20 to-green-400/20' : 'from-green-500 to-green-400'} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                  <div className="absolute -inset-[1px] rounded-lg overflow-hidden">
-                    <div className={`absolute inset-[-10px] bg-[conic-gradient(from_0deg,transparent_0_45deg,${theme === 'dark' ? '#4ade80' : '#22c55e'}_45deg_135deg,transparent_135deg_360deg)] animate-[spin_2s_linear_infinite] opacity-70`} />
-                  </div>
                   <FaWhatsapp className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 mr-2 group-hover:rotate-12 transition-transform duration-300" />
                   <span className="relative z-10 text-center text-sm sm:text-base group-hover:translate-x-1 transition-transform duration-300">Contact Me</span>
                 </motion.a>
@@ -226,36 +218,84 @@ export default function Hero() {
                   </span>
                 </div>
 
-                <div className="flex flex-row items-center justify-center gap-3">
-                  {socialLinks.map((link) => {
-                    const IconComponent = link.icon;
-                    return (
-                      <motion.a
-                        key={link.name}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`relative w-10 h-10 flex items-center justify-center ${
-                          theme === 'dark'
-                            ? 'bg-gray-800/50 hover:bg-gray-700/50 border-gray-700/50'
-                            : 'bg-gray-50 hover:bg-gray-100 border-gray-200/50'
-                        } rounded-lg text-sm backdrop-blur-sm transition-all duration-300 border
-                          before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-r ${
-                            theme === 'dark'
-                              ? 'before:from-gray-600/20 before:to-gray-600/0'
-                              : 'before:from-gray-200/20 before:to-gray-200/0'
-                          } before:opacity-0 hover:before:opacity-100 before:transition-opacity`}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <IconComponent className={`w-5 h-5 relative z-10 ${
-                          theme === 'dark' 
-                            ? 'text-gray-300 hover:text-white' 
-                            : 'text-gray-600 hover:text-gray-900'
-                        }`} />
-                      </motion.a>
-                    );
-                  })}
+                <div className="flex flex-wrap gap-4 justify-center md:justify-start mt-6">
+                  {socialLinks.map((link) => (
+                    <a
+                      key={link.name}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`
+                        relative flex items-center justify-center
+                        w-14 h-14 md:w-11 md:h-11
+                        ${theme === 'dark' 
+                          ? 'bg-gray-800/30'
+                          : 'bg-white/80'
+                        }
+                        backdrop-blur-md
+                        shadow-lg
+                        ${theme === 'dark'
+                          ? 'shadow-blue-500/5'
+                          : 'shadow-gray-200/50'
+                        }
+                        group
+                        transform-gpu
+                        transition-all duration-300
+                        hover:shadow-xl
+                        ${theme === 'dark'
+                          ? 'hover:shadow-blue-500/10'
+                          : 'hover:shadow-gray-300/50'
+                        }
+                        hover:-translate-y-0.5
+                        after:absolute
+                        after:inset-0
+                        after:rounded-[25%]
+                        after:border
+                        ${theme === 'dark'
+                          ? 'after:border-gray-700/50'
+                          : 'after:border-gray-200'
+                        }
+                        before:absolute
+                        before:inset-[3px]
+                        before:rounded-[25%]
+                        before:border
+                        ${theme === 'dark'
+                          ? 'before:border-gray-600/50'
+                          : 'before:border-gray-100'
+                        }
+                        rounded-[25%]
+                      `}
+                    >
+                      {/* Icon Container */}
+                      <div className={`
+                        relative z-10
+                        text-2xl md:text-xl
+                        transform-gpu
+                        transition-transform duration-300
+                        group-hover:scale-110
+                        ${theme === 'dark'
+                          ? 'text-gray-300 group-hover:text-blue-400'
+                          : 'text-gray-700 group-hover:text-blue-500'
+                        }
+                      `}>
+                        {React.createElement(link.icon)}
+                      </div>
+
+                      {/* Shine Effect */}
+                      <div className={`
+                        absolute inset-0
+                        rounded-[25%]
+                        bg-gradient-to-br
+                        ${theme === 'dark'
+                          ? 'from-gray-700/20 via-transparent to-blue-500/5'
+                          : 'from-white/50 via-transparent to-blue-100/20'
+                        }
+                        opacity-0
+                        group-hover:opacity-100
+                        transition-opacity duration-300
+                      `} />
+                    </a>
+                  ))}
                 </div>
               </motion.div>
             </motion.div>
@@ -268,7 +308,7 @@ export default function Hero() {
               {[
                 { value: '1+', label: 'Years Experience' },
                 { value: '10+', label: 'Projects Done' },
-                { value: '15+', label: 'Technologies' }
+                { value: '7+', label: 'Technologies' }
               ].map((stat, index) => (
                 <div 
                   key={index}
