@@ -279,27 +279,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  if (typeof window === 'undefined') {
-    return (
-      <html lang="en" suppressHydrationWarning>
-        <head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <meta name="description" content="Full Stack Developer Portfolio" />
-        </head>
-        <body className={inter.className}>
-          <ThemeProvider>{children}</ThemeProvider>
-        </body>
-      </html>
-    );
-  }
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Full Stack Developer Portfolio" />
       </head>
-      <body className={`${inter.className} bg-gray-900 text-white overflow-x-hidden`}>
+      <body className={`${inter.className} bg-gray-900 text-white overflow-x-hidden`} suppressHydrationWarning>
         <ThemeProvider>
           <MainLayout>{children}</MainLayout>
         </ThemeProvider>

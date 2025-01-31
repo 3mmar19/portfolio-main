@@ -84,32 +84,31 @@ export default function Hero() {
                   transition={{ delay: 0.2 }}
                   className="relative mb-6"
                 >
-                  <div className={`absolute -top-2 -right-2 w-4 h-4 rounded-full animate-ping 
-                    ${theme === 'dark' ? 'bg-green-400/40' : 'bg-green-500/40'}`} 
-                  />
-                  <div className={`absolute -top-2 -right-2 w-4 h-4 rounded-full
-                    ${theme === 'dark' ? 'bg-green-400' : 'bg-green-500'}`} 
-                  />
-                  <span className={`px-4 py-2 rounded-full text-sm font-medium
+                  <span className={`px-4 py-2 rounded-full text-sm font-medium relative overflow-hidden
                     ${theme === 'dark' 
                       ? 'bg-gray-800 text-green-400 border border-green-400/30' 
                       : 'bg-green-50 text-green-600 border border-green-100'
                     } inline-flex items-center`}
                   >
-                    <span className="mr-2">Available for Work</span>
-                    <svg 
-                      className="w-4 h-4" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
-                        strokeWidth={2} 
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" 
-                      />
-                    </svg>
+                    <div className={`absolute -inset-[2px] rounded-full animate-ping opacity-30
+                      ${theme === 'dark' ? 'bg-green-400' : 'bg-green-500'}`} 
+                    />
+                    <span className="mr-2 relative z-10">Available for Work</span>
+                    <div className="relative z-10">
+                      <svg 
+                        className="w-4 h-4" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2} 
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" 
+                        />
+                      </svg>
+                    </div>
                   </span>
                 </motion.div>
 
@@ -145,8 +144,11 @@ export default function Hero() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <div className={`absolute inset-0 bg-gradient-to-r ${theme === 'dark' ? 'from-blue-500/20 to-blue-400/20' : 'from-blue-500 to-blue-400'} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                  <FolderIcon className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 mr-2" />
-                  <span className="relative z-10 text-center text-sm sm:text-base">Browse Projects</span>
+                  <div className="absolute -inset-[1px] rounded-lg overflow-hidden">
+                    <div className={`absolute inset-[-10px] bg-[conic-gradient(from_0deg,transparent_0_45deg,${theme === 'dark' ? '#60a5fa' : '#3b82f6'}_45deg_135deg,transparent_135deg_360deg)] animate-[spin_2s_linear_infinite] opacity-70`} />
+                  </div>
+                  <FolderIcon className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 mr-2 group-hover:rotate-6 transition-transform duration-300" />
+                  <span className="relative z-10 text-center text-sm sm:text-base group-hover:translate-x-1 transition-transform duration-300">Browse Projects</span>
                 </motion.a>
                 <motion.a
                   href="https://wa.me/+966535676369"
@@ -160,8 +162,11 @@ export default function Hero() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <div className={`absolute inset-0 bg-gradient-to-r ${theme === 'dark' ? 'from-green-500/20 to-green-400/20' : 'from-green-500 to-green-400'} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                  <FaWhatsapp className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 mr-2" />
-                  <span className="relative z-10 text-center text-sm sm:text-base">Contact Me</span>
+                  <div className="absolute -inset-[1px] rounded-lg overflow-hidden">
+                    <div className={`absolute inset-[-10px] bg-[conic-gradient(from_0deg,transparent_0_45deg,${theme === 'dark' ? '#4ade80' : '#22c55e'}_45deg_135deg,transparent_135deg_360deg)] animate-[spin_2s_linear_infinite] opacity-70`} />
+                  </div>
+                  <FaWhatsapp className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 mr-2 group-hover:rotate-12 transition-transform duration-300" />
+                  <span className="relative z-10 text-center text-sm sm:text-base group-hover:translate-x-1 transition-transform duration-300">Contact Me</span>
                 </motion.a>
               </div>
 

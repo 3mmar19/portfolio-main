@@ -182,7 +182,14 @@ export default function Projects() {
                    : 'bg-white/90'
                  }`}
     >
-      <div className="flex flex-col gap-6 h-full">
+      <div className="flex flex-col gap-3 h-full">
+        <div className="flex justify-between items-start">
+          <h3 className={`text-xl font-bold ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>
+            {project.title}
+          </h3>
+        </div>
         <div className="w-full relative rounded-xl overflow-hidden aspect-video">
           <Image
             src={project.image}
@@ -196,11 +203,6 @@ export default function Projects() {
 
         <div className="flex flex-col flex-1">
           <div className="flex justify-between items-start mb-4">
-            <h3 className={`text-xl font-bold ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
-              {project.title}
-            </h3>
             <span className={`px-3 py-1 rounded-full text-xs ${
               theme === 'dark' 
                 ? 'bg-gray-700 text-gray-300' 
@@ -278,7 +280,7 @@ export default function Projects() {
                   top: `${index * 4}vh`,
                   height: 'auto',
                   minHeight: '60vh',
-                  paddingTop: `${index * 4}vh`,
+                  paddingTop: `${8 + index * 4}vh`,
                 }}
               >
                 <MobileCard project={project} index={index} />
