@@ -1,6 +1,6 @@
 'use client';
 
-import { Cormorant_Garamond, Domine, Harmattan } from 'next/font/google';
+import { Cormorant_Garamond, Domine, Harmattan, Tajawal } from 'next/font/google';
 import { ThemeProvider, useTheme } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
@@ -8,12 +8,11 @@ import { usePathname } from 'next/navigation';
 import { AnimatePresence } from 'framer-motion';
 import './globals.css';
 
-// Initialize fonts with Latin subset
+// Initialize fonts with Latin and Arabic subsets
 const cormorantGaramond = Cormorant_Garamond({ 
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  style: ['normal', 'italic'],
   variable: '--font-cormorant',
+  weight: ['300', '400', '500', '600', '700'],
 });
 
 const domine = Domine({ 
@@ -22,9 +21,15 @@ const domine = Domine({
 });
 
 const harmattan = Harmattan({ 
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  subsets: ['arabic'],
   variable: '--font-harmattan',
+  weight: ['400', '500', '600', '700'],
+});
+
+const tajawal = Tajawal({ 
+  subsets: ['arabic'],
+  variable: '--font-tajawal',
+  weight: ['200', '300', '400', '500', '700', '800', '900'],
 });
 
 // Type definition for animated background particles
@@ -343,16 +348,15 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Full Stack Developer Portfolio" />
       </head>
-      <body 
-        className={`
-          ${cormorantGaramond.variable} 
-          ${domine.variable} 
-          ${harmattan.variable} 
-          font-cormorant
-          bg-gray-900 text-white overflow-x-hidden
-        `} 
-        suppressHydrationWarning
-      >
+      {/* Apply global styles and theme-specific classes */}
+      <body className={`
+        ${cormorantGaramond.variable} 
+        ${domine.variable} 
+        ${harmattan.variable} 
+        ${tajawal.variable} 
+        font-cormorant
+        bg-gray-900 text-white overflow-x-hidden
+      `} suppressHydrationWarning>
         <ThemeProvider>
           <MainLayout>{children}</MainLayout>
         </ThemeProvider>

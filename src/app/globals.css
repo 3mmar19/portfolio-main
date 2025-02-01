@@ -3,33 +3,29 @@
 @tailwind utilities;
 
 @layer base {
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-domine);
-  }
-
-  body {
+  /* Headings use Cormorant Garamond */
+  h1, h2, h3 {
     font-family: var(--font-cormorant);
+    font-weight: 600;
   }
 
-  .arabic-text {
+  /* Subheadings use Domine */
+  h4, h5, h6 {
+    font-family: var(--font-domine);
+    font-weight: 500;
+  }
+
+  /* Body text uses Tajawal for better readability */
+  body {
+    font-family: var(--font-tajawal);
+    font-weight: 400;
+  }
+
+  /* Navigation and buttons use Harmattan */
+  nav, button, .btn {
     font-family: var(--font-harmattan);
+    font-weight: 500;
   }
-}
-
-.heading-elegant {
-  font-family: var(--font-cormorant);
-  font-style: italic;
-  font-weight: 500;
-}
-
-.text-body {
-  font-family: var(--font-cormorant);
-  font-weight: 400;
-}
-
-.text-accent {
-  font-family: var(--font-domine);
-  font-weight: 600;
 }
 
 /* Custom scrollbar */
