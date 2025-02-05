@@ -157,3 +157,20 @@ html {
 .glass {
   @apply backdrop-blur-md bg-white/10 dark:bg-gray-900/10 border border-white/20 dark:border-gray-700/20;
 }
+
+/* Disable animations on mobile */
+@media (max-width: 768px) {
+  .only-desktop-animations {
+    transform: none !important;
+    opacity: 1 !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .only-desktop-animations * {
+    transform: none !important;
+    opacity: 1 !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
