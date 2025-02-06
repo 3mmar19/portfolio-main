@@ -147,50 +147,53 @@ function MainLayout({ children }: { children: React.ReactNode }) {
             {/* Floating Shapes */}
             <motion.div
               className="absolute z-10"
-              style={{ top: '50%', left: '15%' }}
+              style={{ top: '70%', left: '15%' }}
               animate={{ 
-                y: rocketAnimation.y,
-                scale: [1, 0.7],
-                rotate: [-5, 15]
+                y: [-10, -(window.innerHeight * 0.7)],
               }}
               transition={{
-                duration: 4,
+                duration: 3,
                 repeat: Infinity,
-                repeatType: "reverse",
-                ease: [0.43, 0.13, 0.23, 0.96]
+                repeatType: "loop",
+                ease: "easeInOut"
               }}
             >
-              <motion.div
-                animate={{ rotate: 15 }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  ease: [0.43, 0.13, 0.23, 0.96]
-                }}
-              >
-                <div className={`w-12 h-12 ${theme === 'dark' ? 'bg-gray-800/50 border-gray-700/50' : 'bg-white/50 border-gray-200/50'} rounded-xl backdrop-blur-sm flex items-center justify-center text-2xl border relative overflow-hidden group`}>
-                  <span className="relative z-10 group-hover:scale-110 transition-transform">🚀</span>
-                  
-                  {/* Rocket trail effect */}
-                  <motion.div
-                    className="absolute inset-0 opacity-50"
-                    initial={false}
-                    animate={{
-                      background: [
-                        'radial-gradient(circle at 50% 100%, rgba(255,165,0,0.4) 0%, transparent 50%)',
-                        'radial-gradient(circle at 50% 100%, rgba(255,165,0,0.2) 0%, transparent 70%)',
-                        'radial-gradient(circle at 50% 100%, rgba(255,165,0,0.1) 0%, transparent 90%)'
-                      ]
-                    }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                  />
-                </div>
-              </motion.div>
+              <div className={`w-12 h-12 ${theme === 'dark' ? 'bg-gray-800/50 border-gray-700/50' : 'bg-white/50 border-gray-200/50'} rounded-xl backdrop-blur-sm flex items-center justify-center text-2xl border relative overflow-hidden group`}>
+                <span className="relative z-10 text-2xl ">🚀</span>
+              
+                {/* Particle effects */}
+                <motion.div
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2"
+                  style={{
+                    width: '12px',
+                    height: '2px'
+                  }}
+                >
+                  {[...Array(6)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 rounded-full"
+                      style={{
+                        background: i % 2 === 0 ? '#FFA500' : '#FF4500',
+                        left: `${(i - 2.5) * 4}px`,
+                        bottom: '0'
+                      }}
+                      animate={{
+                        y: [0, 20],
+                        x: [(i - 2.5) * 2, (i - 2.5) * 4],
+                        opacity: [1, 0],
+                        scale: [1, 0.5]
+                      }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        delay: i * 0.1,
+                        ease: "easeOut"
+                      }}
+                    />
+                  ))}
+                </motion.div>
+              </div>
             </motion.div>
 
             <motion.div
