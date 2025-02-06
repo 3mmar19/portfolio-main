@@ -408,7 +408,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="Ammar Bin Hussain Portfolio - Computer Science Graduate specializing in Frontend Development, Data Analysis, and Digital Marketing. Explore my projects and skills." />
         <meta name="keywords" content="Ammar Bin Hussain, Frontend Developer, Computer Science Graduate, Web Development, Data Analysis, Digital Marketing, Saudi Arabia, Makkah" />
         <meta name="author" content="Ammar Bin Hussain" />
@@ -442,7 +444,9 @@ export default function RootLayout({
       `} suppressHydrationWarning>
         <ThemeProvider>
           <StarCursor />
-          <MainLayout>{children}</MainLayout>
+          <MainLayout>
+            {children}
+          </MainLayout>
         </ThemeProvider>
       </body>
     </html>
