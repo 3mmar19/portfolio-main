@@ -13,3 +13,8 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval' *.netlify.app; img-src 'self' data: blob: *.netlify.app; style-src 'self' 'unsafe-inline';"
+[[redirects]]
+  from = "/*"
+  to = "https://3mmar.info/:splat"
+  status = 301
+  force = true
