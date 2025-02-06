@@ -2,6 +2,9 @@
   command = "npm run build"
   publish = ".next"
 
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -10,10 +13,3 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval' *.netlify.app; img-src 'self' data: blob: *.netlify.app; style-src 'self' 'unsafe-inline';"
-
-[[redirects]]
-  from = "https://3mmar1.netlify.app/*"
-  to = "https://3mmar.info/:splat"
-  status = 301
-  force = true
-  conditions = {Host = "3mmar1.netlify.app"}

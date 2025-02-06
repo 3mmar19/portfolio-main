@@ -1,45 +1,39 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://3mmar.info'),
-  title: {
-    template: '%s | Ammar Bin Hussain',
-    default: 'Ammar Bin Hussain - Frontend Developer & Digital Marketing Specialist',
-  },
-  description: 'Computer Science Graduate specializing in Frontend Development, Data Analysis, and Digital Marketing. Explore my projects and skills.',
-  keywords: [
-    'Ammar Bin Hussain',
-    'Frontend Developer',
-    'Computer Science Graduate',
-    'Web Development',
-    'Data Analysis',
-    'Digital Marketing',
-    'Saudi Arabia',
-    'Makkah',
-  ],
-  authors: [{ name: 'Ammar Bin Hussain' }],
-  creator: 'Ammar Bin Hussain',
-  publisher: 'Ammar Bin Hussain',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+  title: 'Ammar | Portfolio',
+  description: 'Frontend Developer & Digital Marketing Specialist',
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      {
+        url: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23808080'>A</text></svg>",
+        type: 'image/svg+xml',
+      }
+    ],
+    shortcut: [
+      {
+        url: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23808080'>A</text></svg>",
+        type: 'image/svg+xml',
+      }
+    ],
   },
-  verification: {
-    google: 'G-017S6V3LRM',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#1a1a1a' }
+  ],
+  viewport: 'width=device-width, initial-scale=1',
+  robots: 'index, follow',
+  openGraph: {
+    title: 'Ammar Bin Hussain | Portfolio',
+    description: 'Computer Science Graduate specializing in Frontend Development, Data Analysis, and Digital Marketing.',
+    url: 'https://3mmar.info',
+    siteName: 'Ammar Bin Hussain Portfolio',
+    locale: 'en_US',
+    type: 'website',
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ammar Bin Hussain | Portfolio',
+    description: 'Computer Science Graduate specializing in Frontend Development, Data Analysis, and Digital Marketing.',
   },
-};
+}

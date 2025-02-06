@@ -143,7 +143,7 @@ const Footer = () => {
               className={`text-sm mt-2 md:mt-0 flex items-center ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
               whileHover={{ scale: 1.05 }}
             >
-              Crafted with 
+              Made with 
               <motion.span
                 className="mx-1 text-red-500"
                 animate={{ scale: [1, 1.2, 1] }}

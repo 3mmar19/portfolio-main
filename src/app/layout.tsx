@@ -413,7 +413,17 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Ammar | Portfolio</title>
+
+        {/* Text-based favicon */}
+        <link
+          rel="icon"
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>"
+        />
+        
+        {/* Theme color for browser UI */}
+        <meta name="theme-color" content="#1a1a1a" />
+        
         <meta name="description" content="Ammar Bin Hussain Portfolio - Computer Science Graduate specializing in Frontend Development, Data Analysis, and Digital Marketing. Explore my projects and skills." />
         <meta name="keywords" content="Ammar Bin Hussain, Frontend Developer, Computer Science Graduate, Web Development, Data Analysis, Digital Marketing, Saudi Arabia, Makkah" />
         <meta name="author" content="Ammar Bin Hussain" />
