@@ -258,12 +258,9 @@ export default function Projects() {
     const ProjectIcon = getProjectIcon(project.icon);
     
     return (
-      <motion.div
+      <div
         className={`relative overflow-hidden rounded-xl transition-all duration-500
-          p-[2px] hover:-translate-y-1 hover:shadow-xl`}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+          p-[2px] shadow-xl`}
       >
         {/* Gradient Border */}
         <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${getBorderColor(index)} opacity-75`} />
@@ -271,8 +268,8 @@ export default function Projects() {
         {/* Card Content */}
         <div className={`relative h-full rounded-[10px] overflow-hidden
           ${theme === 'dark' 
-            ? 'bg-gray-900/95 hover:bg-gray-800/95' 
-            : 'bg-gray-100/95 hover:bg-gray-200/95'
+            ? 'bg-gray-900/95' 
+            : 'bg-gray-100/95'
           }`}
         >
           <div className="flex flex-col gap-1 h-full p-4">
@@ -285,11 +282,18 @@ export default function Projects() {
                     ${theme === 'dark' ? 'text-blue-400' : 'text-blue-500'}`}
                   />
                 </div>
-                <h3 className={`text-lg font-bold ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
-                  {project.title}
-                </h3>
+                <div className="space-y-1">
+                  <h3 className={`text-lg font-bold ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    {project.title}
+                  </h3>
+                  <p className={`text-[11px] tracking-wide font-medium ${
+                    theme === 'dark' ? 'text-blue-400/80' : 'text-blue-500/80'
+                  }`}>
+                    ↗ Tap image to visit project
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -346,7 +350,7 @@ export default function Projects() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     );
   };
 
@@ -373,11 +377,11 @@ export default function Projects() {
             <ul className="list-none p-0">
               <li className="sticky top-0 pt-8">
                 <div className={`pt-8`}>
-                  <SectionTitle 
-                    title="Projects"
-                    fromColor="from-purple-400"
-                    toColor="to-pink-400"
-                  />
+            <SectionTitle 
+              title="Projects"
+              fromColor="from-purple-400"
+              toColor="to-pink-400"
+            />
                 </div>
               </li>
               {[...projects].reverse().map((project, index) => (
