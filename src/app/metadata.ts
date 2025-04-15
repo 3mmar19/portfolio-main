@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Ammar | Portfolio',
-  description: 'Frontend Developer & Digital Marketing Specialist',
+  description: 'IT Support Technician & Computer Science Graduate',
   icons: {
     icon: [
       {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   robots: 'index, follow',
   openGraph: {
     title: 'Ammar Bin Hussain | Portfolio',
-    description: 'Computer Science Graduate specializing in Frontend Development, Data Analysis, and Digital Marketing.',
+    description: 'IT Support Technician & Computer Science Graduate. Specialized in technical support, custom PC building, data analysis, and digital marketing.',
     url: 'https://3mmar.info',
     siteName: 'Ammar Bin Hussain Portfolio',
     locale: 'en_US',
@@ -34,6 +34,6 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Ammar Bin Hussain | Portfolio',
-    description: 'Computer Science Graduate specializing in Frontend Development, Data Analysis, and Digital Marketing.',
+    description: 'IT Support Technician & Computer Science Graduate. Specialized in technical support, custom PC building, data analysis, and digital marketing.',
   },
 }

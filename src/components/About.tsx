@@ -75,6 +75,7 @@ export default function About() {
   return (
     <section id="about" className="py-20 relative bg-transparent">
       <div className="container mx-auto px-4">
+        
         {/* Section title with custom gradient colors */}
         <SectionTitle 
           title="About Me" 
@@ -93,51 +94,56 @@ export default function About() {
           {/* Left column: Personal introduction */}
           <div className="space-y-8">
             <motion.div variants={itemVariants} className="space-y-6 text-center md:text-left">
-              {/* Professional title */}
-              <h3 className={`text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r
-                ${theme === 'dark' 
-                  ? 'from-gray-100 to-gray-300' 
-                  : 'from-gray-700 to-gray-900'}`}>
-                Computer Science Graduate & Frontend Developer
-              </h3>
-              
+
               {/* Bio cards */}
               <div className="space-y-4">
                 {/* Introduction card */}
-                <motion.p 
-                  className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
-                    backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
-                    border ${theme === 'dark' ? 'border-gray-700/80' : 'border-gray-200/80'}`}
-                  whileHover={{ scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
+                <motion.div
+                  className="space-y-4"
+                  variants={itemVariants}
                 >
-                  Hello! I&apos;m <span className="font-semibold text-blue-500">Ammar Bin Hussain</span>, 
-                  a Computer Science graduate with First Class Honors from Umm Al-Qura University (UQU). 
-                  I&apos;m passionate about solving real-world problems through web development and creating 
-                  beautiful, functional websites that make a difference.
-                </motion.p>
+                  <motion.p 
+                    className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
+                      backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
+                      border ${theme === 'dark' ? 'border-blue-500/80' : 'border-gray-200/80'}`}
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    Hi! I'm <span className="font-semibold text-blue-500">Ammar Hussain Ahmed</span>, an IT Support Technician and Computer Science graduate (First Class Honors, Umm Al-Qura University). I have hands-on experience building custom gaming PCs, installing and configuring Windows and Linux systems, and troubleshooting a wide range of hardware and software issues.
+                  </motion.p>
+                  <motion.p 
+                    className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
+                      backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
+                      border ${theme === 'dark' ? 'border-blue-500/80' : 'border-gray-200/80'}`}
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    My technical support background includes working with Qatarat App and iDara.NET, where I provided solutions that kept systems running smoothly and users happy. looking for new challenges, or learning the latest tools in IT. embodying the philosophy of a <span className="font-semibold text-blue-500">healthy mind in a healthy body</span>.
+                  </motion.p>
+                </motion.div>
 
-                {/* Additional info card */}
-                <motion.p 
-                  className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
-                    backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
-                    border ${theme === 'dark' ? 'border-gray-700/80' : 'border-gray-200/80'}`}
-                  whileHover={{ scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
+                {/* Skills and soft skills card */}
+                <motion.div
+                  className="space-y-4"
+                  variants={itemVariants}
                 >
-                  As a <span className="font-semibold text-blue-500">self-taught developer</span>, 
-                  I&apos;ve honed my skills in modern web technologies through hands-on experience 
-                  and continuous learning. Beyond coding, I maintain a balanced lifestyle with a 
-                  strong interest in fitness and nutrition, embodying the philosophy of a 
-                  <span className="font-semibold text-blue-500"> healthy mind in a healthy body</span>.
-                </motion.p>
+                  <motion.p 
+                    className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
+                      backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
+                      border ${theme === 'dark' ? 'border-blue-500/80' : 'border-gray-200/80'}`}
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    I'm eager to bring my troubleshooting skills, technical expertise, and positive attitude to a team where I can make a real impact and keep growing in the IT field. <span className="font-semibold text-blue-500">Let's connect and see how I can help your organization thrive!</span>
+                  </motion.p>
+                </motion.div>
               </div>
             </motion.div>
 
             {/* Resume download button */}
             <motion.div variants={itemVariants} className="flex justify-center md:justify-start">
               <motion.a
-                href="/resume/Ammar-Resume.pdf"
+                href="/resume/AmmarBinHussainCvEm.pdf"
                 download
                 className={`group relative inline-flex items-center gap-2 px-8 py-3 overflow-hidden
                   ${theme === 'dark'
@@ -170,53 +176,80 @@ export default function About() {
             {/* Skills categories */}
             {[
               {
-                title: 'Frontend',
-                items: ['HTML & CSS', 'JavaScript', 'Tailwind CSS', 'Framer']
+                title: 'Technical Tools',
+                icon: <span className="text-blue-500"><i className="fas fa-tools"></i></span>,
+                items: [
+                  'Windows OS',
+                  'Linux OS',
+                  'BIOS/UEFI',
+                  'TeamViewer',
+                  'AnyDesk',
+                  'VS Code',
+                  'MySQL',
+                ]
               },
               {
-                title: 'Data Analysis & Visualization',
-                items: ['Excel Advanced', 'PowerBI', 'Tableau', 'Python Data Analysis']
+                title: 'Hardware',
+                icon: <span className="text-purple-500"><i className="fas fa-microchip"></i></span>,
+                items: [
+                  'Custom PC Building',
+                  'Hardware Diagnostics',
+                  'Peripheral Setup',
+                  'Remote Desktop Tools',
+                ]
               },
               {
-                title: 'Tools & DevOps',
-                items: ['Git & GitHub', 'VS Code', 'Netlify', 'Cloudflare']
+                title: 'Programming & Data',
+                icon: <span className="text-green-500"><i className="fas fa-code"></i></span>,
+                items: [
+                  'JavaScript',
+                  'Python',
+                  'HTML & CSS',
+                  'Power BI',
+                  'Tableau',
+                  'Data Visualization & Reporting',
+                ]
               },
               {
-                title: 'Digital Marketing & Tools',
-                items: ['SEO', 'Social Media Marketing', 'AI Tools', 'Google Analytics', 'Google Ads']
+                title: 'Digital Marketing',
+                icon: <span className="text-yellow-500"><i className="fas fa-bullhorn"></i></span>,
+                items: [
+                  'SEO',
+                  'Social Media Marketing',
+                  'Google Analytics',
+                  'Google Ads',
+                  'AI Tools',
+                ]
               }
             ].map((section, index) => (
               <motion.div
                 key={section.title}
                 variants={cardVariants}
                 whileHover="hover"
-                className={`relative backdrop-blur-md rounded-xl p-6 
+                className={`relative backdrop-blur-md rounded-2xl p-6 shadow-lg border-2 transition-all duration-300
                   ${theme === 'dark' 
-                    ? 'bg-gray-800/30 border-gray-700/50' 
-                    : 'bg-white/30 border-gray-200/50'} 
-                  border overflow-hidden`}
+                    ? 'bg-gray-800/60 border-blue-500'
+                    : 'bg-white/70 border-blue-400'}
+                  overflow-hidden group`}
+                style={{ borderImage: 'none' }}
               >
-                <div className={`absolute inset-0 bg-gradient-to-br opacity-20
-                  ${index % 2 === 0 
-                    ? 'from-blue-500/20 to-purple-500/20' 
-                    : 'from-purple-500/20 to-blue-500/20'}`} 
-                />
-                <h4 className="font-bold mb-4 text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
-                  {section.title}
-                </h4>
-                <ul className="space-y-3">
-                  {section.items.map((item, i) => (
+                <div className="flex items-center gap-2 mb-4">
+                  {section.icon}
+                  <h4 className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
+                    {section.title}
+                  </h4>
+                </div>
+                <ul className="flex flex-wrap gap-2">
+                  {section.items.map((item) => (
                     <motion.li 
                       key={item}
-                      className="flex items-center space-x-3"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
+                      className={`px-3 py-1 rounded-full text-sm font-medium shadow-sm transition-all duration-200
+                        ${theme === 'dark' ? 'bg-blue-800/60 text-blue-100 border-blue-500 group-hover:bg-blue-700/80' : 'bg-blue-100 text-blue-700 border-blue-400 group-hover:bg-blue-200'}`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.08 }}
                     >
-                      <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                      <span className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                        {item}
-                      </span>
+                      {item}
                     </motion.li>
                   ))}
                 </ul>

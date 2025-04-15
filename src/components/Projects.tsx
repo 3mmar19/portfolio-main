@@ -75,14 +75,14 @@ export default function Projects() {
   // Project data configuration
   const projects: Project[] = [
     {
-      title: 'AlKian Agency',
-      titleAr: 'وكالة الكيان للدعاية والإعلان',
-      description: 'Professional marketing agency website built with Framer platform, featuring modern animations, service showcase, and integrated contact forms.',
-      descriptionAr: 'موقع وكالة تسويق احترافي تم بناؤه باستخدام منصة Framer، يتميز بالرسوم المتحركة الحديثة وعرض الخدمات ونماذج التواصل.',
+      title: 'Alkian Transport',
+      titleAr: 'وكالة الكيان للنقل',
+      description: 'Transportation agency providing premium transfer services for Umrah and Hajj pilgrims at competitive prices. AlKian partners with top transport companies to ensure a smooth, safe, and economical journey to the holy sites, maintaining the highest standards of quality and safety.',
+      descriptionAr: 'وكالة الكيان توفر خدمات نقل متميزة للمعتمرين والحجاج بأسعار تنافسية من خلال التعاقد مع أفضل شركات النقل. نجعل رحلتك إلى المشاعر المقدسة أكثر سلاسة واقتصادية مع ضمان أعلى معايير الجودة والسلامة.',
       image: '/projects/alkian.jpg',
-      tags: ['Framer', 'Animations', 'SEO', 'Responsive'],
+      tags: ['Myfatoorah', 'PostgreSQL', 'Dashboard', 'Umrah', 'Hajj'],
       link: 'https://alkian.sa/',
-      category: 'Landing Page',
+      category: 'Transport Services',
       icon: 'megaphone'
     },
     {

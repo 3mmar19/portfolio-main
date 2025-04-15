@@ -149,151 +149,151 @@ export default function Hero() {
             </span>
           </h1>
           <p className={`text-lg md:text-xl ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} max-w-2xl mx-auto mb-6`}>
-            Frontend Developer & Digital Marketing Specialist
+            IT Support Technician & Computer Science Graduate
           </p>
 
           {/* Tech Stack Tags */}
           <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {['React', 'Next.js', 'TypeScript', 'Node.js'].map((tech) => (
+            {['Windows OS', 'Linux OS', 'BIOS/UEFI', 'TeamViewer', 'AnyDesk', 'VS Code', 'MySQL', 'Custom PC Building', 'JavaScript', 'Python', 'HTML & CSS', 'Power BI', 'Tableau', 'SEO', 'Google Analytics'].map((tech) => (
               <span
                 key={tech}
-                className={`px-3 py-1 text-sm rounded-full transition-all duration-300 hover:scale-105 ${
-                  theme === 'dark' 
-                    ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' 
-                    : 'bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100/70 hover:border-blue-300'
-                } border`}
+                className={`px-3 py-1 text-sm rounded-full border-2 font-medium shadow-sm transition-all duration-300 hover:scale-105 ` +
+                  (theme === 'dark'
+                    ? 'bg-blue-800/60 text-blue-100 border-blue-500 hover:bg-blue-700/80'
+                    : 'bg-blue-100 text-blue-700 border-blue-400 hover:bg-blue-200')
+                }
               >
                 {tech}
               </span>
             ))}
           </div>
-        </motion.div>
 
-        {/* Action Buttons */}
-        <motion.div 
-          className="flex  sm:flex-row items-center justify-center gap-4 mb-12"
-          variants={itemVariants}
-        >
-          <motion.a
-            href="#projects"
-            className={`group relative flex items-center justify-center w-full sm:w-44 h-12 px-6
-              ${theme === 'dark' 
-                ? 'bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 text-blue-400 border border-blue-500/20' 
-                : 'bg-gradient-to-r from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 text-blue-600 border border-blue-200'
-              } rounded-lg text-sm font-medium transition-all duration-500 backdrop-blur-sm`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          {/* Action Buttons */}
+          <motion.div 
+            className="flex  sm:flex-row items-center justify-center gap-4 mb-12"
+            variants={itemVariants}
           >
-            <FolderIcon className="w-5 h-5 relative z-10 mr-2 group-hover:rotate-6 transition-transform duration-300" />
-            <span className="relative z-10 text-base group-hover:translate-x-1 transition-transform duration-300">
-              View Projects
-            </span>
-          </motion.a>
-
-          <motion.a
-            href="https://wa.me/+966535676369"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group relative flex items-center justify-center w-full sm:w-44 h-12 px-6
-              ${theme === 'dark' 
-                ? 'bg-gradient-to-r from-green-500/10 to-emerald-500/10 hover:from-green-500/20 hover:to-emerald-500/20 text-green-400 border border-green-500/20' 
-                : 'bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 text-green-600 border border-green-200'
-              } rounded-lg text-sm font-medium transition-all duration-500 backdrop-blur-sm`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <FaWhatsapp className="w-5 h-5 relative z-10 mr-2 group-hover:rotate-12 transition-transform duration-300" />
-            <span className="relative z-10 text-base group-hover:translate-x-1 transition-transform duration-300">
-              Let's Talk
-            </span>
-          </motion.a>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div 
-          className="grid grid-cols-3 gap-4 mb-12 max-w-2xl mx-auto"
-          variants={itemVariants}
-        >
-          {[
-            { value: '1+', label: 'Years Experience' },
-            { value: '10+', label: 'Projects Done' },
-            { value: '7+', label: 'Technologies' }
-          ].map((stat, index) => (
-            <div 
-              key={index}
-              className={`group relative backdrop-blur-sm rounded-lg p-4 text-center border transition-all duration-300
-                ${theme === 'dark'
-                  ? 'bg-gray-800/30 border-gray-700/50 hover:bg-gray-800/40'
-                  : 'bg-white/60 border-gray-200 hover:bg-white/90 hover:border-gray-300 hover:shadow-sm'
-                }`}
-            >
-              <div className="relative z-10">
-                <div className={`text-xl font-semibold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-                  {stat.value}
-                </div>
-                <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                  {stat.label}
-                </div>
-              </div>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Social Links */}
-        <motion.div 
-          className="flex justify-center gap-4"
-          variants={itemVariants}
-        >
-          {socialLinks.map(({ name, url, icon: Icon }) => (
             <motion.a
-              key={name}
-              href={url}
+              href="#projects"
+              className={`group relative flex items-center justify-center w-full sm:w-44 h-12 px-6
+                ${theme === 'dark' 
+                  ? 'bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 text-blue-400 border border-blue-500/20' 
+                  : 'bg-gradient-to-r from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 text-blue-600 border border-blue-200'
+                } rounded-lg text-sm font-medium transition-all duration-500 backdrop-blur-sm`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <FolderIcon className="w-5 h-5 relative z-10 mr-2 group-hover:rotate-6 transition-transform duration-300" />
+              <span className="relative z-10 text-base group-hover:translate-x-1 transition-transform duration-300">
+                View Projects
+              </span>
+            </motion.a>
+
+            <motion.a
+              href="https://wa.me/+966535676369"
               target="_blank"
               rel="noopener noreferrer"
-              className={`group relative p-3 rounded-lg transition-all duration-300 overflow-hidden
-                ${theme === 'dark'
-                  ? 'bg-gray-800/30 text-gray-400 border border-gray-700/50 hover:border-blue-500/50'
-                  : 'bg-white/70 hover:bg-white text-gray-600 hover:text-gray-800 border border-gray-200 hover:border-gray-300 hover:shadow-sm'
-                } backdrop-blur-sm`}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              className={`group relative flex items-center justify-center w-full sm:w-44 h-12 px-6
+                ${theme === 'dark' 
+                  ? 'bg-gradient-to-r from-green-500/10 to-emerald-500/10 hover:from-green-500/20 hover:to-emerald-500/20 text-green-400 border border-green-500/20' 
+                  : 'bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 text-green-600 border border-green-200'
+                } rounded-lg text-sm font-medium transition-all duration-500 backdrop-blur-sm`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              {/* Gradient overlay for dark theme */}
-              {theme === 'dark' && (
-                <>
-                  {/* Animated gradient background */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10" />
-                  </div>
-                  
-                  {/* Glow effect */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300" />
-                  
-                  {/* Moving shine effect */}
-                  <div className="absolute inset-0 translate-x-full group-hover:translate-x-[-175%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                </>
-              )}
-
-              {/* Icon container */}
-              <div className="relative z-10">
-                <Icon className={`w-5 h-5 transition-all duration-300 ${
-                  theme === 'dark' 
-                    ? 'group-hover:text-blue-400 group-hover:scale-110'
-                    : 'group-hover:text-gray-800'
-                }`} />
-              </div>
-
-              {/* Tooltip */}
-              <div className={`absolute left-1/2 -translate-x-1/2 -bottom-10 px-3 py-1 rounded-md text-sm font-medium opacity-0 group-hover:opacity-100 group-hover:-bottom-12 pointer-events-none transition-all duration-300
-                ${theme === 'dark'
-                  ? 'bg-gray-800 text-gray-200 border border-gray-700'
-                  : 'bg-white text-gray-800 border border-gray-200 shadow-sm'
-                }`}
-              >
-                {name}
-              </div>
+              <FaWhatsapp className="w-5 h-5 relative z-10 mr-2 group-hover:rotate-12 transition-transform duration-300" />
+              <span className="relative z-10 text-base group-hover:translate-x-1 transition-transform duration-300">
+                Let's Talk
+              </span>
             </motion.a>
-          ))}
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div 
+            className="grid grid-cols-3 gap-4 mb-12 max-w-2xl mx-auto"
+            variants={itemVariants}
+          >
+            {[
+              { value: '1+', label: 'Years Experience' },
+              { value: '10+', label: 'Projects Done' },
+              { value: '7+', label: 'Technologies' }
+            ].map((stat, index) => (
+              <div 
+                key={index}
+                className={`group relative backdrop-blur-sm rounded-lg p-4 text-center border transition-all duration-300
+                  ${theme === 'dark'
+                    ? 'bg-gray-800/30 border-gray-700/50 hover:bg-gray-800/40'
+                    : 'bg-white/60 border-gray-200 hover:bg-white/90 hover:border-gray-300 hover:shadow-sm'
+                  }`}
+              >
+                <div className="relative z-10">
+                  <div className={`text-xl font-semibold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+                    {stat.value}
+                  </div>
+                  <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                    {stat.label}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Social Links */}
+          <motion.div 
+            className="flex justify-center gap-4"
+            variants={itemVariants}
+          >
+            {socialLinks.map(({ name, url, icon: Icon }) => (
+              <motion.a
+                key={name}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group relative p-3 rounded-lg transition-all duration-300 overflow-hidden
+                  ${theme === 'dark'
+                    ? 'bg-gray-800/30 text-gray-400 border border-gray-700/50 hover:border-blue-500/50'
+                    : 'bg-white/70 hover:bg-white text-gray-600 hover:text-gray-800 border border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                  } backdrop-blur-sm`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {/* Gradient overlay for dark theme */}
+                {theme === 'dark' && (
+                  <>
+                    {/* Animated gradient background */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10" />
+                    </div>
+                    
+                    {/* Glow effect */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300" />
+                    
+                    {/* Moving shine effect */}
+                    <div className="absolute inset-0 translate-x-full group-hover:translate-x-[-175%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                  </>
+                )}
+
+                {/* Icon container */}
+                <div className="relative z-10">
+                  <Icon className={`w-5 h-5 transition-all duration-300 ${
+                    theme === 'dark' 
+                      ? 'group-hover:text-blue-400 group-hover:scale-110'
+                      : 'group-hover:text-gray-800'
+                  }`} />
+                </div>
+
+                {/* Tooltip */}
+                <div className={`absolute left-1/2 -translate-x-1/2 -bottom-10 px-3 py-1 rounded-md text-sm font-medium opacity-0 group-hover:opacity-100 group-hover:-bottom-12 pointer-events-none transition-all duration-300
+                  ${theme === 'dark'
+                    ? 'bg-gray-800 text-gray-200 border border-gray-700'
+                    : 'bg-white text-gray-800 border border-gray-200 shadow-sm'
+                  }`}
+                >
+                  {name}
+                </div>
+              </motion.a>
+            ))}
+          </motion.div>
         </motion.div>
       </motion.div>
     </section>

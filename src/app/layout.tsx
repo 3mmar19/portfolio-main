@@ -13,24 +13,25 @@ import './globals.css';
 const cormorantGaramond = Cormorant_Garamond({ 
   subsets: ['latin'],
   variable: '--font-cormorant',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['600'], // Only load weight actually used
 });
 
 const domine = Domine({ 
   subsets: ['latin'],
   variable: '--font-domine',
+  weight: ['500'], // Only load weight actually used
 });
 
 const harmattan = Harmattan({ 
   subsets: ['arabic'],
   variable: '--font-harmattan',
-  weight: ['400', '500', '600', '700'],
+  weight: ['500'], // Only load weight actually used
 });
 
 const tajawal = Tajawal({ 
   subsets: ['arabic'],
   variable: '--font-tajawal',
-  weight: ['200', '300', '400', '500', '700', '800', '900'],
+  weight: ['400'], // Only load weight actually used
 });
 
 // Type definition for animated background particles
@@ -53,6 +54,7 @@ function MainLayout({ children }: { children: React.ReactNode }) {
   const [particles, setParticles] = useState<Particle[]>([]);
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false); 
   const { theme } = useTheme();
   const pathname = usePathname();
   const [rocketAnimation, setRocketAnimation] = useState({ y: [-10, -100] });
@@ -75,19 +77,31 @@ function MainLayout({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  // Initialize particles on component mount for non-mobile devices
+  // Detect reduced motion preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
+    const handler = () => setReducedMotion(mediaQuery.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  // Initialize particles on component mount for non-mobile devices and if reduced motion is off
   useEffect(() => {
     setIsMounted(true);
-    if (!isMobile) {
-      const newParticles = Array.from({ length: 50 }, () => ({
+    if (!isMobile && !reducedMotion) {
+      // Reduced particle count from 50 to 15 for performance
+      const newParticles = Array.from({ length: 15 }, () => ({
         x: Math.random() * 100,
         y: Math.random() * 100,
         size: Math.random() * 2 + 1,
         speed: Math.random() * 15 + 10,
       }));
       setParticles(newParticles);
+    } else {
+      setParticles([]); // No particles if reduced motion
     }
-  }, [isMobile]);
+  }, [isMobile, reducedMotion]);
 
   // Show a simple container before component mounts
   if (!isMounted) {
@@ -100,8 +114,8 @@ function MainLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative min-h-screen">
-      {/* Only render background elements on non-mobile devices */}
-      {!isMobile && (
+      {/* Only render background elements on non-mobile devices and if reduced motion is off */}
+      {!isMobile && !reducedMotion && (
         <>
           {/* Dark gradient background overlay */}
           <div className="fixed inset-0 bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 -z-10" />
@@ -413,7 +427,7 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Ammar | Portfolio</title>
+        <title>Ammar Bin Hussain | IT Support Technician & Computer Science Graduate Portfolio</title>
 
         {/* Text-based favicon */}
         <link
@@ -424,15 +438,15 @@ export default function RootLayout({
         {/* Theme color for browser UI */}
         <meta name="theme-color" content="#1a1a1a" />
         
-        <meta name="description" content="Ammar Bin Hussain Portfolio - Computer Science Graduate specializing in Frontend Development, Data Analysis, and Digital Marketing. Explore my projects and skills." />
-        <meta name="keywords" content="Ammar Bin Hussain, Frontend Developer, Computer Science Graduate, Web Development, Data Analysis, Digital Marketing, Saudi Arabia, Makkah" />
+        <meta name="description" content="Ammar Bin Hussain Portfolio - IT Support Technician & Computer Science Graduate. Specialized in technical support, custom PC building, data analysis, and digital marketing. Explore my projects and skills." />
+        <meta name="keywords" content="Ammar Bin Hussain, IT Support Technician, Computer Science Graduate, Technical Support, Custom PC Building, Data Analysis, Digital Marketing, Saudi Arabia, Makkah" />
         <meta name="author" content="Ammar Bin Hussain" />
         <meta name="robots" content="index, follow" />
         <meta name="language" content="English" />
         
         {/* Open Graph Meta Tags for social media */}
         <meta property="og:title" content="Ammar Bin Hussain | Portfolio" />
-        <meta property="og:description" content="Computer Science Graduate specializing in Frontend Development, Data Analysis, and Digital Marketing. Explore my projects and professional journey." />
+        <meta property="og:description" content="IT Support Technician & Computer Science Graduate. Specialized in technical support, custom PC building, data analysis, and digital marketing. Explore my projects and professional journey." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://3mmar.info" />
         <meta property="og:image" content="/images/og-image.png" />
@@ -440,7 +454,7 @@ export default function RootLayout({
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Ammar Bin Hussain | Portfolio" />
-        <meta name="twitter:description" content="Computer Science Graduate specializing in Frontend Development, Data Analysis, and Digital Marketing." />
+        <meta name="twitter:description" content="IT Support Technician & Computer Science Graduate. Specialized in technical support, custom PC building, data analysis, and digital marketing." />
         <meta name="twitter:image" content="/images/og-image.png" />
         
         {/* Canonical URL */}
