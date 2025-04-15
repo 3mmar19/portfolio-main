@@ -19,7 +19,20 @@ const nextConfig = {
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
-  }
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self' 'unsafe-inline' 'unsafe-eval' *.netlify.app; connect-src 'self' https://api.emailjs.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.netlify.app; style-src 'self' 'unsafe-inline' *.netlify.app; img-src 'self' data: https:; font-src 'self' https: data:;",
+          },
+        ],
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig
