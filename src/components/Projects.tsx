@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { trackProjectInteraction } from '@/utils/analytics';
 import {
   MegaphoneIcon,
   ShoppingCartIcon,
@@ -15,6 +16,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import SectionTitle from './SectionTitle';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 /**
  * Projects Component
@@ -56,17 +58,44 @@ export default function Projects() {
     return iconMap[iconType] || iconMap['default'];
   };
 
+  // Project type definition
+  type Project = {
+    title: string;
+    titleAr: string;
+    description: string;
+    descriptionAr: string;
+    image: string;
+    tags: string[];
+    link: string;
+    demo?: string;  // Optional demo link
+    category: string;
+    icon: string;
+    isNew?: boolean;  // Flag to indicate if this is the latest project
+  };
+
   // Project data configuration
-  const projects = [
+  const projects: Project[] = [
     {
-      title: 'AlKian Agency',
-      titleAr: 'وكالة الكيان للدعاية والإعلان',
-      description: 'Professional marketing agency website built with Framer platform, featuring modern animations, service showcase, and integrated contact forms.',
-      descriptionAr: 'موقع وكالة تسويق احترافي تم بناؤه باستخدام منصة Framer، يتميز بالرسوم المتحركة الحديثة وعرض الخدمات ونماذج التواصل.',
+      title: 'Yalsaadi Accountants',
+      titleAr: 'الصاعدي محاسبون ومستشارون',
+      description: 'Professional accounting and consulting firm website offering integrated accounting, tax, and zakat services with a modern, responsive design and bilingual support.',
+      descriptionAr: 'موقع شركة محاسبة واستشارات مهنية يقدم خدمات محاسبية وضريبية وزكوية متكاملة بتصميم عصري متجاوب وبدعم ثنائي اللغة.',
+      image: '/projects/yalsaadi.png',
+      tags: ['Astro js', 'Responsive', 'Bilingual', 'Modern UI'],
+      link: 'https://yalsaadi.com/',
+      category: 'Business Website',
+      icon: 'building',
+      isNew: true
+    },
+    {
+      title: 'Alkian Transport',
+      titleAr: 'وكالة الكيان للنقل',
+      description: 'Transportation agency providing premium transfer services for Umrah and Hajj pilgrims at competitive prices. AlKian partners with top transport companies to ensure a smooth, safe, and economical journey to the holy sites, maintaining the highest standards of quality and safety.',
+      descriptionAr: 'وكالة الكيان توفر خدمات نقل متميزة للمعتمرين والحجاج بأسعار تنافسية من خلال التعاقد مع أفضل شركات النقل. نجعل رحلتك إلى المشاعر المقدسة أكثر سلاسة واقتصادية مع ضمان أعلى معايير الجودة والسلامة.',
       image: '/projects/alkian.jpg',
-      tags: ['Framer', 'Animations', 'SEO', 'Responsive'],
+      tags: ['Myfatoorah', 'PostgreSQL', 'Dashboard', 'Umrah', 'Hajj'],
       link: 'https://alkian.sa/',
-      category: 'Landing Page',
+      category: 'Transport Services',
       icon: 'megaphone'
     },
     {
@@ -125,178 +154,91 @@ export default function Projects() {
     },
   ];
 
-  // Function to get border color based on index
-  const getBorderColor = (index: number) => {
-    const colors = [
-      'border-blue-500/50 hover:border-blue-500',
-      'border-purple-500/50 hover:border-purple-500',
-      'border-emerald-500/50 hover:border-emerald-500',
-      'border-pink-500/50 hover:border-pink-500',
-      'border-amber-500/50 hover:border-amber-500',
-      'border-teal-500/50 hover:border-teal-500'
-    ];
-    return colors[index % colors.length];
+  const borderColors = [
+    'from-blue-500 to-purple-500',
+    'from-green-500 to-teal-500',
+    'from-orange-500 to-pink-500',
+    'from-purple-500 to-blue-500',
+    'from-teal-500 to-green-500',
+    'from-pink-500 to-orange-500',
+  ];
+
+  const getBorderColor = (index: number) => borderColors[index % borderColors.length];
+
+  const cardVariants = {
+    initial: { 
+      opacity: 0,
+      y: 20 
+    },
+    whileInView: { 
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    },
   };
 
-  // Desktop card component
-  const DesktopCard = ({ project, index }: { project: typeof projects[0], index: number }) => (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className={`group relative overflow-hidden rounded-xl border-2 
-        ${getBorderColor(index)}
-        ${theme === 'dark' 
-          ? 'bg-gray-800/50 hover:bg-gray-800/70' 
-          : 'bg-white hover:bg-gray-50'
-        } shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02]`}
-    >
-      <Link href={project.link} target="_blank" rel="noopener noreferrer">
-        <div className="relative h-52 overflow-hidden">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
-            priority={index === 0}
-          />
-          <div className={`absolute inset-0 bg-gradient-to-t ${
-            theme === 'dark'
-              ? 'from-gray-900 via-gray-900/40'
-              : 'from-black/60 via-black/20'
-          } to-transparent`}>
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium mb-2
-                ${theme === 'dark' 
-                  ? 'bg-gray-700 text-gray-300' 
-                  : 'bg-white/90 text-gray-900'
-                }`}>
-                {project.category}
-              </span>
-              <h3 className="text-lg font-bold text-white mb-1">
-                {project.title}
-              </h3>
-              <p className="text-sm text-gray-200 line-clamp-2 mb-2">
-                {project.description}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="p-4">
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className={`text-xs px-3 py-1 rounded-full transition-colors duration-300 ${
-                  theme === 'dark'
-                    ? 'bg-gray-700 text-gray-300 group-hover:bg-gray-600'
-                    : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'
-                }`}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className={`absolute top-3 right-3 p-2 rounded-full 
-          ${theme === 'dark' 
-            ? 'bg-gray-800/80 text-white' 
-            : 'bg-white/80 text-gray-900'
-          } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-        >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="h-4 w-4" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
-            />
-          </svg>
-        </div>
-      </Link>
-    </motion.div>
-  );
-
-  // Mobile card component
-  const MobileCard = ({ project, index }: { project: typeof projects[0], index: number }) => {
-    const { theme } = useTheme();
-    // Get project icon
-    const ProjectIcon = getProjectIcon(project.icon);
-    
-    return (
-      <div
-        className={`h-full rounded-2xl shadow-xl p-2 md:p-8 border-2
-                   transition-all duration-500 transform hover:scale-[1.02] 
-                   ${getBorderColor(index)}
-                   ${theme === 'dark' 
-                     ? 'bg-gray-800/90' 
-                     : 'bg-white/90'
-                   }`}
+  // Desktop card component with conditional animations
+  const DesktopCard = ({ project, index }: { project: Project, index: number }) => (
+    <div className="only-desktop-animations">
+      <motion.div
+        className={`group relative overflow-hidden rounded-xl transition-all duration-500 cursor-pointer
+          p-[2px] md:hover:-translate-y-1 md:hover:shadow-xl`}
+        variants={cardVariants}
+        initial="initial"
+        whileInView="whileInView"
+        viewport={{ once: true }}
+        onClick={() => window.open(project.link, '_blank', 'noopener,noreferrer')}
       >
-        <div className="flex flex-col gap-1 h-full">
-          <div className="flex justify-between items-start">
-            <div className="flex items-center gap-3">
-              {/* Project icon */}
-              <div className={`p-2 rounded-xl
-                ${theme === 'dark' ? 'bg-blue-500/10' : 'bg-blue-50'}`}>
-                <ProjectIcon className={`w-5 h-5
-                  ${theme === 'dark' ? 'text-blue-400' : 'text-blue-500'}`}
-                />
-              </div>
-              <h3 className={`text-lg font-bold ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                {project.title}
-              </h3>
-            </div>
+        {/* Gradient Border */}
+        <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${getBorderColor(index)} opacity-75`} />
+
+        {/* Card Content */}
+        <div className={`relative h-full rounded-[10px] overflow-hidden
+          ${theme === 'dark' 
+            ? 'bg-gray-900/95 hover:bg-gray-800/95' 
+            : 'bg-gray-100/95 hover:bg-gray-200/95'
+          }`}
+        >
+          {/* View Project Icon */}
+          <div className={`absolute top-3 right-3 z-10 p-2 rounded-full transition-all duration-300 transform
+            ${theme === 'dark'
+              ? 'bg-gray-800/90 text-gray-400'
+              : 'bg-gray-200/90 text-gray-600'
+            } md:opacity-0 md:group-hover:opacity-100 md:group-hover:scale-110
+            opacity-100`}>
+            <FaExternalLinkAlt className="w-3 h-3" />
           </div>
 
-          <div className="w-full relative rounded-xl overflow-hidden aspect-video">
+          {/* Project Image */}
+          <div className="relative aspect-[16/10] overflow-hidden">
             <Image
               src={project.image}
               alt={project.title}
+              className="object-cover md:transition-transform md:duration-500 md:group-hover:scale-110"
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover"
-              priority={index === 0}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+              priority={index < 4}
+              loading={index >= 4 ? 'lazy' : undefined}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+            <div className={`absolute inset-0 transition-opacity duration-500 ${
+              theme === 'dark'
+                ? 'bg-gradient-to-b from-transparent via-gray-900/20 to-gray-900/90'
+                : 'bg-gradient-to-b from-transparent via-gray-100/20 to-gray-100/90'
+            }`} />
           </div>
 
-          <div className="flex flex-col flex-1">
-            <div className="flex justify-between items-start mb-4">
-              <span className={`px-3 py-1 rounded-full text-xs ${
-                theme === 'dark' 
-                  ? 'bg-gray-700 text-gray-300' 
-                  : 'bg-gray-200 text-gray-700'
-              }`}>
-                {project.category}
-              </span>
-            </div>
-            
-            <p className={`text-base mb-6 line-clamp-3 ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}>
-              {project.description}
-            </p>
-
-            <div className="flex flex-wrap gap-2 mb-6">
-              {project.tags.map((tag) => (
+          {/* Project Info */}
+          <div className="relative p-4 space-y-3">
+            <div className="flex flex-wrap gap-1.5">
+              {project.tags.slice(0, 3).map((tag, tagIndex) => (
                 <span
-                  key={tag}
-                  className={`text-xs px-3 py-1 rounded-full ${
+                  key={tagIndex}
+                  className={`px-2 py-0.5 text-xs rounded-full transition-all duration-300 ${
                     theme === 'dark'
-                      ? 'bg-gray-700 text-gray-300'
-                      : 'bg-gray-100 text-gray-600'
+                      ? 'bg-gray-800/80 text-gray-300 border border-gray-700/80 group-hover:bg-gray-700/80'
+                      : 'bg-gray-200/80 text-gray-700 border border-gray-300/80 group-hover:bg-gray-300/80'
                   }`}
                 >
                   {tag}
@@ -304,19 +246,131 @@ export default function Projects() {
               ))}
             </div>
 
-            <div className="mt-auto">
-              <Link
-                href={project.link}
-                target="_blank"
-                className={`w-full px-4 py-2 rounded-full text-sm font-medium text-center 
-                         transition-all duration-300 ${
-                           theme === 'dark'
-                             ? 'bg-blue-500 text-white hover:bg-blue-600'
-                             : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
-                         }`}
+            <div className="space-y-2">
+              <h3 className={`text-lg font-bold transition-all duration-300 line-clamp-1 ${
+                theme === 'dark' ? 'text-white group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-600'
+              }`}>
+                {project.title}
+              </h3>
+
+              <p className={`text-sm line-clamp-2 transition-all duration-300 ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+                {project.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+
+  // Mobile card component
+  const MobileCard = ({ project, index }: { project: Project, index: number }) => {
+    // Get project icon
+    const ProjectIcon = getProjectIcon(project.icon);
+    
+    return (
+      <div
+        className={`relative overflow-hidden rounded-xl transition-all duration-500
+          p-[2px] shadow-xl`}
+      >
+        {/* Gradient Border */}
+        <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${getBorderColor(index)} opacity-75`} />
+
+        {/* Card Content */}
+        <div className={`relative h-full rounded-[10px] overflow-hidden
+          ${theme === 'dark' 
+            ? 'bg-gray-900/95' 
+            : 'bg-gray-100/95'
+          }`}
+        >
+          <div className="flex flex-col gap-1 h-full p-4">
+            <div className="flex justify-between items-start">
+              <div className="flex items-center gap-3">
+                {/* Latest Badge */}
+                {project.isNew && (
+                  <div className={`px-2 py-1 rounded-full text-xs font-semibold tracking-wide ${
+                    theme === 'dark' 
+                      ? 'bg-blue-400/20 text-blue-400 border border-blue-400/30' 
+                      : 'bg-blue-500/20 text-blue-500 border border-blue-500/30'
+                  }`}>
+                    Latest
+                  </div>
+                )}
+                
+                {/* Project icon */}
+                <div className={`p-2 rounded-xl
+                  ${theme === 'dark' ? 'bg-blue-500/10' : 'bg-blue-50'}`}>
+                  <ProjectIcon className={`w-5 h-5
+                    ${theme === 'dark' ? 'text-blue-400' : 'text-blue-500'}`}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <h3 className={`text-lg font-bold ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    {project.title}
+                  </h3>
+                  <p className={`text-[11px] tracking-wide font-medium ${
+                    theme === 'dark' ? 'text-blue-400/80' : 'text-blue-500/80'
+                  }`}>
+                    ↗ Tap image to visit project
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative aspect-video mt-4 rounded-lg overflow-hidden">
+              <Image
+                src={project.image}
+                alt={project.title}
+                className="object-cover"
+                fill
+                sizes="100vw"
+                priority={index === 0}
+                loading={index > 0 ? 'lazy' : undefined}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <Link 
+                href={project.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="absolute inset-0"
+                onClick={() => trackProjectInteraction(project.title, 'click')}
               >
-                Visit Project →
+                <div className={`absolute top-3 right-3 p-2 rounded-full 
+                  ${theme === 'dark' 
+                    ? 'bg-gray-800/80 text-white' 
+                    : 'bg-white/80 text-gray-900'
+                  } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                >
+                  <FaExternalLinkAlt className="w-4 h-4" />
+                </div>
               </Link>
+            </div>
+
+            <div className="flex flex-col flex-1 mt-4">
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.tags.slice(0, 3).map((tag) => (
+                  <span
+                    key={tag}
+                    className={`text-xs px-3 py-1 rounded-full ${
+                      theme === 'dark'
+                        ? 'bg-gray-700 text-gray-300'
+                        : 'bg-gray-100 text-gray-600'
+                    }`}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              
+              <p className={`text-sm line-clamp-3 ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+                {project.description}
+              </p>
             </div>
           </div>
         </div>
@@ -325,16 +379,16 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="py-20">
+    <section id="projects" className="py-20 relative bg-transparent">
       <div className="container mx-auto px-4">
         {/* Desktop View */}
         <div className="hidden md:block">
           <SectionTitle 
-            title="Projects" 
+            title="Projects"
             fromColor="from-purple-400"
             toColor="to-pink-400"
           />
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-12">
             {projects.map((project, index) => (
               <DesktopCard key={project.title} project={project} index={index} />
             ))}
@@ -347,11 +401,11 @@ export default function Projects() {
             <ul className="list-none p-0">
               <li className="sticky top-0 pt-8">
                 <div className={`pt-8`}>
-                  <SectionTitle 
-                    title="Projects"
-                    fromColor="from-purple-400"
-                    toColor="to-pink-400"
-                  />
+            <SectionTitle 
+              title="Projects"
+              fromColor="from-purple-400"
+              toColor="to-pink-400"
+            />
                 </div>
               </li>
               {[...projects].reverse().map((project, index) => (

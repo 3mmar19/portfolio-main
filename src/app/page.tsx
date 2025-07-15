@@ -11,6 +11,7 @@ import Projects from '../components/Projects';
 import Footer from '../components/Footer';
 
 export default function Home() {
+
   const { theme } = useTheme();
 
   const bgGradient = theme === 'dark' 

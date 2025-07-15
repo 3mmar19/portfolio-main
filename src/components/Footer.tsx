@@ -1,82 +1,134 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { FaGithub, FaLinkedinIn, FaTwitter, FaHeart } from 'react-icons/fa';
+import { 
+  FaGithub, 
+  FaLinkedinIn, 
+  FaTwitter, 
+  FaHeart, 
+  FaWhatsapp, 
+  FaMapMarkerAlt,
+  FaCode,
+  FaCoffee
+} from 'react-icons/fa';
+import { siteConfig } from '@/config/site';
+import { trackSocialClick } from '@/utils/analytics';
 
 /**
  * Footer Component
  * 
- * A responsive footer section with social links and copyright information.
+ * A responsive footer section with social links and contact information.
  * Features:
  * - Animated social media links with hover effects
  * - Theme-aware styling
- * - Responsive layout for all screen sizes
+ * - Contact information with icons
+ * - Analytics tracking for social clicks
  * - Dynamic copyright year
  */
 const Footer = () => {
-  // Get current theme from ThemeContext
   const { theme } = useTheme();
-
-  // Get current year for copyright
   const currentYear = new Date().getFullYear();
 
   // Social media links configuration
   const socialLinks = [
     { 
       name: 'GitHub', 
-      href: 'https://github.com/3mmar19', 
-      icon: FaGithub 
+      href: siteConfig.links.github, 
+      icon: FaGithub,
+      color: 'hover:text-gray-900 dark:hover:text-white'
     },
     { 
       name: 'LinkedIn', 
-      href: 'https://linkedin.com/in/3mmar', 
-      icon: FaLinkedinIn 
+      href: siteConfig.links.linkedin, 
+      icon: FaLinkedinIn,
+      color: 'hover:text-blue-600'
     },
     { 
       name: 'Twitter', 
-      href: 'https://twitter.com/3mmar_dev', 
-      icon: FaTwitter 
+      href: siteConfig.links.twitter, 
+      icon: FaTwitter,
+      color: 'hover:text-blue-400'
     },
+    {
+      name: 'WhatsApp',
+      href: 'https://wa.me/+966535676369',
+      icon: FaWhatsapp,
+      color: 'hover:text-green-500'
+    }
   ];
 
+  const handleSocialClick = (platform: string) => {
+    trackSocialClick(platform);
+  };
+
   return (
-    // Footer container with theme-aware styling
     <footer className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}`}>
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Logo & Description */}
+          {/* About Section */}
           <div className="text-center md:text-left">
-            <h3 className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-              Ammar Bin Hussain
-            </h3>
-            <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              Full Stack Developer
+            <motion.h3 
+              className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
+              whileHover={{ x: 5 }}
+            >
+              About Me
+            </motion.h3>
+            <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-4`}>
+              Frontend Developer with a passion for creating engaging web experiences
             </p>
+            <div className={`flex items-center justify-center md:justify-start gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+              <FaMapMarkerAlt className="w-4 h-4 text-red-500" />
+              <span>Makkah, Saudi Arabia</span>
+            </div>
           </div>
-          {/* Social Links */}
-          <div className="text-center md:text-right">
-            <h3 className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-              Connect
-            </h3>
-            <div className="flex justify-center md:justify-end space-x-4">
+
+          {/* Quick Links */}
+          <div className="text-center">
+            <motion.h3 
+              className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
+              whileHover={{ x: 5 }}
+            >
+              Let's Connect
+            </motion.h3>
+            <div className="flex flex-wrap justify-center gap-4">
               {socialLinks.map((social) => (
-                // Animated social media link with hover effect
                 <motion.a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-2 rounded-full ${
+                  onClick={() => handleSocialClick(social.name)}
+                  className={`p-3 rounded-full transition-all duration-300 ${
                     theme === 'dark' 
                       ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' 
                       : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
-                  }`}
-                  whileHover={{ scale: 1.1 }}
+                  } ${social.color}`}
+                  whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
               ))}
+            </div>
+          </div>
+
+          {/* Tech Stack */}
+          <div className="text-center md:text-right">
+            <motion.h3 
+              className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
+              whileHover={{ x: -5 }}
+            >
+              Tech Stack
+            </motion.h3>
+            <div className={`flex flex-col gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+              <div className="flex items-center justify-center md:justify-end gap-2">
+                <FaCode className="w-4 h-4 text-blue-500" />
+                <span>React, Next.js, TypeScript</span>
+              </div>
+              <div className="flex items-center justify-center md:justify-end gap-2">
+                <FaCoffee className="w-4 h-4 text-yellow-500" />
+                <span>Node.js, Express, MongoDB</span>
+              </div>
             </div>
           </div>
         </div>
@@ -93,17 +145,17 @@ const Footer = () => {
             >
               Made with 
               <motion.span
+                className="mx-1 text-red-500"
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{
                   duration: 1,
                   repeat: Infinity,
                   repeatType: "reverse"
                 }}
-                className="mx-1 text-red-500"
               >
-                <FaHeart className="w-4 h-4" />
+                <FaHeart className="w-4 h-4 inline" />
               </motion.span>
-              Using Ai
+              Using 🤖
             </motion.p>
           </div>
         </div>

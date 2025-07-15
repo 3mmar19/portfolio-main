@@ -1,17 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  HomeIcon, 
-  UserIcon,
-  AcademicCapIcon,
-  RectangleStackIcon,
-  EnvelopeIcon,
-  SunIcon,
-  MoonIcon,
-  CodeBracketIcon
+import {
+    AcademicCapIcon,
+    CodeBracketIcon,
+    EnvelopeIcon,
+    HomeIcon,
+    MoonIcon,
+    RectangleStackIcon,
+    SunIcon,
+    UserIcon
 } from '@heroicons/react/24/outline';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
 /**
@@ -107,6 +107,13 @@ const ThemeToggle = ({ isMobile = false }: { isMobile?: boolean }) => {
                   />
                 ))}
               </motion.div>
+              {/* Pulsating outer glow enhancement */}
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                style={{ background: "radial-gradient(circle, rgba(255,223,0,0.5) 0%, rgba(255,223,0,0) 70%)" }}
+                animate={{ scale: [1, 1.1, 1], opacity: [1, 0.7, 1] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              />
               <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full"
                 style={{ filter: "blur(1px)" }}
@@ -171,14 +178,14 @@ const ThemeToggle = ({ isMobile = false }: { isMobile?: boolean }) => {
  */
 const getThemeClasses = (theme: string) => ({
   active: theme === 'dark'
-    ? 'text-white bg-blue-500/10 border border-blue-400/30'
-    : 'text-gray-900 bg-blue-400/10 border border-blue-300/30',
+    ? 'text-blue-400 bg-blue-400/10 border border-blue-500/30'
+    : 'text-blue-600 bg-blue-400/10 border border-blue-500/30',
   inactive: theme === 'dark'
     ? 'text-gray-300 hover:text-white hover:bg-gray-800/20 border border-transparent hover:border-gray-700/30'
-    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/20 border border-transparent hover:border-gray-200/30',
+    : 'text-gray-500 hover:text-gray-800 hover:bg-gray-200/30 border border-transparent hover:border-gray-300/50',
   container: theme === 'dark'
-    ? 'bg-gray-900/80 border-gray-700 shadow-lg shadow-gray-900/30'
-    : 'bg-white/80 border-gray-200 shadow-lg shadow-gray-200/30'
+    ? 'bg-gray-900/85 border-gray-700/80 shadow-lg shadow-gray-900/20'
+    : 'bg-gray-100/85 border-gray-300/80 shadow-lg shadow-gray-300/20'
 });
 
 /**
