@@ -32,6 +32,7 @@ export default function Contact() {
   const { theme } = useTheme();
   const { language } = useLanguageContext();
   const { t } = useTranslation();
+
   
   // Form state management
   const [formData, setFormData] = useState({
@@ -77,6 +78,20 @@ export default function Contact() {
       newErrors.message = t('contact.validation.messageRequired');
     } else if (formData.message.length < 10) {
       newErrors.message = t('contact.validation.messageLength');
+
+      newErrors.name = 'Name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.length < 10) {
+      newErrors.message = 'Message must be at least 10 characters long';
     }
 
     setErrors(newErrors);
