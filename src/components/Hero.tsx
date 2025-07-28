@@ -173,6 +173,7 @@ export default function Hero() {
               <span
                 key={tech.key}
                 className={`px-3 py-1 text-sm rounded-full border-2 font-medium shadow-sm transition-all duration-300 hover:scale-105 ${language === 'ar' ? 'font-harmattan' : ''} ` +
+
                   (theme === 'dark'
                     ? 'bg-blue-800/60 text-blue-100 border-blue-500 hover:bg-blue-700/80'
                     : 'bg-blue-100 text-blue-700 border-blue-400 hover:bg-blue-200')

@@ -26,7 +26,6 @@ const nextConfig = {
   swcMinify: true,
   poweredByHeader: false,
   compress: true,
-  
   async headers() {
     return [
       {

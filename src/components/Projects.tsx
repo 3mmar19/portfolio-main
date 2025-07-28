@@ -95,7 +95,7 @@ export default function Projects() {
       title: 'Alkian Transport',
       titleAr: 'وكالة الكيان للنقل',
       description: 'Transportation agency providing premium transfer services for Umrah and Hajj pilgrims at competitive prices. AlKian partners with top transport companies to ensure a smooth, safe, and economical journey to the holy sites, maintaining the highest standards of quality and safety.',
-      descriptionAr: 'وكالة الكيان توفر خدمات نقل متميزة للمعتمرين والحجاج بأسعار تنافسية من خلال التعاقد مع أفضل شركات النقل. نجعل رحلتك إلى المشاعر المقدسة أكثر سلاسة واقتصادية مع ضمان أعلى معايير الجودة والسلامة.',
+      descriptionAr: 'وكالة الكيان توفر خدمات نقل متميزة للمعتمرين والحجاج بأسعار تنافسية من خلال التعاقد مع أفضل شركات النقل. نجعل رحلتك إلى المشاعر المقدسة أكثر سلاسة واقتصادية مع ضمان أعلى معايير الجودة والسلامة.',     
       image: '/projects/alkian.png',
       tags: ['Myfatoorah', 'PostgreSQL', 'Dashboard', 'Umrah', 'Hajj'],
       link: 'https://alkian.sa/',

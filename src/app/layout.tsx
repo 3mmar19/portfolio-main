@@ -427,6 +427,7 @@ export default function RootLayout({
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
         <SEO />
+
       </head>
       {/* Apply global styles and theme-specific classes */}
       <body className={`
