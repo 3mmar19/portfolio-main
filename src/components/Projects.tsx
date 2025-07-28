@@ -17,6 +17,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SectionTitle from './SectionTitle';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import { useTranslation } from '../utils/i18n';
+import { useLanguageContext } from '../context/LanguageContext';
 
 /**
  * Projects Component
@@ -32,6 +34,8 @@ import { FaExternalLinkAlt } from 'react-icons/fa';
 export default function Projects() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { t } = useTranslation();
+  const { language } = useLanguageContext();
 
   useEffect(() => {
     setMounted(true);
@@ -70,19 +74,32 @@ export default function Projects() {
     demo?: string;  // Optional demo link
     category: string;
     icon: string;
+    isNew?: boolean;  // Flag to indicate if this is the latest project
   };
 
   // Project data configuration
   const projects: Project[] = [
     {
-      title: 'AlKian Agency',
-      titleAr: 'وكالة الكيان للدعاية والإعلان',
-      description: 'Professional marketing agency website built with Framer platform, featuring modern animations, service showcase, and integrated contact forms.',
-      descriptionAr: 'موقع وكالة تسويق احترافي تم بناؤه باستخدام منصة Framer، يتميز بالرسوم المتحركة الحديثة وعرض الخدمات ونماذج التواصل.',
-      image: '/projects/alkian.jpg',
-      tags: ['Framer', 'Animations', 'SEO', 'Responsive'],
+      title: 'Yalsaadi Accountants',
+      titleAr: 'الصاعدي محاسبون ومستشارون',
+      description: 'Professional accounting and consulting firm website offering integrated accounting, tax, and zakat services with a modern, responsive design and bilingual support.',
+      descriptionAr: 'موقع شركة محاسبة واستشارات مهنية يقدم خدمات محاسبية وضريبية وزكوية متكاملة بتصميم عصري متجاوب وبدعم ثنائي اللغة.',
+      image: '/projects/yalsaadi.png',
+      tags: ['Astro js', 'Responsive', 'Bilingual', 'Modern UI'],
+      link: 'https://yalsaadi.com/',
+      category: 'Business Website',
+      icon: 'building',
+      isNew: true
+    },
+    {
+      title: 'Alkian Transport',
+      titleAr: 'وكالة الكيان للنقل',
+      description: 'Transportation agency providing premium transfer services for Umrah and Hajj pilgrims at competitive prices. AlKian partners with top transport companies to ensure a smooth, safe, and economical journey to the holy sites, maintaining the highest standards of quality and safety.',
+      descriptionAr: 'وكالة الكيان توفر خدمات نقل متميزة للمعتمرين والحجاج بأسعار تنافسية من خلال التعاقد مع أفضل شركات النقل. نجعل رحلتك إلى المشاعر المقدسة أكثر سلاسة واقتصادية مع ضمان أعلى معايير الجودة والسلامة.',
+      image: '/projects/alkian.png',
+      tags: ['Myfatoorah', 'PostgreSQL', 'Dashboard', 'Umrah', 'Hajj'],
       link: 'https://alkian.sa/',
-      category: 'Landing Page',
+      category: 'Transport Services',
       icon: 'megaphone'
     },
     {
@@ -237,13 +254,13 @@ export default function Projects() {
               <h3 className={`text-lg font-bold transition-all duration-300 line-clamp-1 ${
                 theme === 'dark' ? 'text-white group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-600'
               }`}>
-                {project.title}
+                {language === 'ar' ? project.titleAr : project.title}
               </h3>
 
               <p className={`text-sm line-clamp-2 transition-all duration-300 ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                {project.description}
+                {language === 'ar' ? project.descriptionAr : project.description}
               </p>
             </div>
           </div>
@@ -275,6 +292,17 @@ export default function Projects() {
           <div className="flex flex-col gap-1 h-full p-4">
             <div className="flex justify-between items-start">
               <div className="flex items-center gap-3">
+                {/* Latest Badge */}
+                {project.isNew && (
+                  <div className={`px-2 py-1 rounded-full text-xs font-semibold tracking-wide ${
+                    theme === 'dark' 
+                      ? 'bg-blue-400/20 text-blue-400 border border-blue-400/30' 
+                      : 'bg-blue-500/20 text-blue-500 border border-blue-500/30'
+                  }`}>
+                    {language === 'ar' ? 'الأحدث' : 'Latest'}
+                  </div>
+                )}
+                
                 {/* Project icon */}
                 <div className={`p-2 rounded-xl
                   ${theme === 'dark' ? 'bg-blue-500/10' : 'bg-blue-50'}`}>
@@ -286,12 +314,12 @@ export default function Projects() {
                   <h3 className={`text-lg font-bold ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
                   }`}>
-                    {project.title}
+                    {language === 'ar' ? project.titleAr : project.title}
                   </h3>
                   <p className={`text-[11px] tracking-wide font-medium ${
                     theme === 'dark' ? 'text-blue-400/80' : 'text-blue-500/80'
                   }`}>
-                    ↗ Tap image to visit project
+                    {language === 'ar' ? '↗ اضغط على الصورة لزيارة المشروع' : '↗ Tap image to visit project'}
                   </p>
                 </div>
               </div>
@@ -345,7 +373,7 @@ export default function Projects() {
               <p className={`text-sm line-clamp-3 ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                {project.description}
+                {language === 'ar' ? project.descriptionAr : project.description}
               </p>
             </div>
           </div>
@@ -360,7 +388,7 @@ export default function Projects() {
         {/* Desktop View */}
         <div className="hidden md:block">
           <SectionTitle 
-            title="Projects"
+            title={language === 'ar' ? 'المشاريع' : 'Projects'}
             fromColor="from-purple-400"
             toColor="to-pink-400"
           />
@@ -378,7 +406,7 @@ export default function Projects() {
               <li className="sticky top-0 pt-8">
                 <div className={`pt-8`}>
             <SectionTitle 
-              title="Projects"
+              title={language === 'ar' ? 'المشاريع' : 'Projects'}
               fromColor="from-purple-400"
               toColor="to-pink-400"
             />

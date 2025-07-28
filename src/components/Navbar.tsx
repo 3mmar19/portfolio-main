@@ -1,18 +1,21 @@
 'use client';
 
 import {
-    AcademicCapIcon,
-    CodeBracketIcon,
-    EnvelopeIcon,
-    HomeIcon,
-    MoonIcon,
-    RectangleStackIcon,
-    SunIcon,
-    UserIcon
+  AcademicCapIcon,
+  CodeBracketIcon,
+  EnvelopeIcon,
+  HomeIcon,
+  MoonIcon,
+  RectangleStackIcon,
+  SunIcon,
+  UserIcon
 } from '@heroicons/react/24/outline';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguageContext } from '../context/LanguageContext';
+import { useTranslation } from '../utils/i18n';
+import LanguageSwitcher from './LanguageSwitcher';
 
 /**
  * Interface for navigation items
@@ -30,12 +33,12 @@ interface NavItem {
  * Defines the main navigation links and their properties
  * Each item includes a name, anchor link, and Heroicon component
  */
-const navigation: NavItem[] = [
-  { name: 'Home', href: '#home', icon: HomeIcon },
-  { name: 'About', href: '#about', icon: UserIcon },
-  { name: 'Education', href: '#education', icon: AcademicCapIcon },
-  { name: 'Projects', href: '#projects', icon: RectangleStackIcon },
-  { name: 'Contact', href: '#contact', icon: EnvelopeIcon },
+const getNavigationItems = (t: (key: string) => string): NavItem[] => [
+  { name: t('navbar.home'), href: '#home', icon: HomeIcon },
+  { name: t('navbar.about'), href: '#about', icon: UserIcon },
+  { name: t('navbar.education'), href: '#education', icon: AcademicCapIcon },
+  { name: t('navbar.projects'), href: '#projects', icon: RectangleStackIcon },
+  { name: t('navbar.contact'), href: '#contact', icon: EnvelopeIcon },
 ];
 
 /**
@@ -203,6 +206,7 @@ interface NavLinkProps {
  */
 const NavLink: React.FC<NavLinkProps> = ({ item, isMobile = false, activeSection, onMobileClick }) => {
   const { theme } = useTheme();
+  const { language, t } = useTranslation();
   const themeClasses = getThemeClasses(theme);
   const isActive = activeSection === item.href.substring(1);
   
@@ -210,10 +214,11 @@ const NavLink: React.FC<NavLinkProps> = ({ item, isMobile = false, activeSection
     <a
       key={item.name}
       href={item.href}
-      onClick={() => isMobile && onMobileClick?.()}
+      onClick={onMobileClick}
       className={`flex items-center ${isMobile ? 'px-3 py-2 text-base' : 'px-2.5 py-1.5 text-sm'} 
         font-medium rounded-lg transition-all duration-300 
-        ${isActive ? themeClasses.active : themeClasses.inactive}`}
+        ${language === 'ar' ? 'font-harmattan' : ''} ${themeClasses.inactive} ${isActive ? themeClasses.active : ''}`}
+      style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}
     >
       <item.icon className={`${isMobile ? 'mr-3 h-6 w-6' : 'mr-1 h-4 w-4'} 
         transition-colors duration-300 
@@ -229,18 +234,28 @@ const NavLink: React.FC<NavLinkProps> = ({ item, isMobile = false, activeSection
  */
 export default function Navbar() {
   const { theme } = useTheme();
+  // Use language context directly for language state
+  const { language } = useLanguageContext();
+  // Use translation hook for text translations
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [scrollProgress, setScrollProgress] = useState(0);
 
+  // Create navigation array inside useEffect to make it reactive to language changes
+  const [navigation, setNavigation] = useState(getNavigationItems(t));
+
   useEffect(() => {
+    // Update navigation when language changes
+    setNavigation(getNavigationItems(t));
     const handleScroll = () => {
       const winScroll = document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       setScrollProgress((winScroll / height) * 100);
 
       const scrollPosition = window.scrollY + 100;
-      const currentSection = navigation.find(({ href }) => {
+      const currentSection = navigation.find((item) => {
+        const href = item.href;
         const element = document.getElementById(href.substring(1));
         return element && scrollPosition >= element.offsetTop && 
                scrollPosition < element.offsetTop + element.offsetHeight;
@@ -254,7 +269,7 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [language, t]);
 
   const themeClasses = getThemeClasses(theme);
   const CIRCLE_RADIUS = 16;
@@ -266,8 +281,8 @@ export default function Navbar() {
         <div className={`relative backdrop-blur-[10px] border ${themeClasses.container} rounded-xl transition-all duration-300`}>
           <div className="flex items-center justify-between h-12 md:h-12 px-3">
             {/* Desktop Navigation */}
-            <div className="hidden md:flex md:items-center md:space-x-2">
-              {navigation.map(item => (
+            <div className={`hidden md:flex items-center ${language === 'ar' ? 'space-x-reverse space-x-4' : 'space-x-4'}`}>
+              {navigation.map((item: NavItem) => (
                 <NavLink 
                   key={item.name} 
                   item={item} 
@@ -277,13 +292,17 @@ export default function Navbar() {
             </div>
 
             {/* Theme Toggle Desktop */}
-            <div className="hidden md:flex md:items-center pl-2">
+            <div className={`hidden md:flex items-center ${language === 'ar' ? 'mr-4' : 'ml-4'} space-x-2`}>
+              <LanguageSwitcher />
               <ThemeToggle />
             </div>
 
             {/* Mobile header */}
             <div className="flex items-center justify-between w-full md:hidden">
-              <ThemeToggle isMobile />
+              <div className="flex items-center space-x-2">
+                <ThemeToggle isMobile />
+                <LanguageSwitcher isMobile={true} />
+              </div>
 
               {/* Progress Ring with Logo */}
               <motion.a
@@ -377,7 +396,7 @@ export default function Navbar() {
               className={`md:hidden mt-2 rounded-xl backdrop-blur-[10px] border ${themeClasses.container} rounded-xl`}
             >
               <div className="px-2 pt-2 pb-3 space-y-1">
-                {navigation.map(item => (
+                {navigation.map((item: NavItem) => (
                   <NavLink 
                     key={item.name} 
                     item={item} 
@@ -386,6 +405,10 @@ export default function Navbar() {
                     onMobileClick={() => setIsOpen(false)}
                   />
                 ))}
+                <div className="flex justify-between items-center px-3 py-2">
+                  <LanguageSwitcher isMobile={true} />
+                  <ThemeToggle isMobile={true} />
+                </div>
               </div>
             </motion.div>
           )}

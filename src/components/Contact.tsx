@@ -3,6 +3,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguageContext } from '../context/LanguageContext';
+import { useTranslation } from '../utils/i18n';
 import React from 'react';
 import emailjs from '@emailjs/browser';
 import SectionTitle from './SectionTitle';
@@ -28,6 +30,8 @@ type FormErrors = {
  */
 export default function Contact() {
   const { theme } = useTheme();
+  const { language } = useLanguageContext();
+  const { t } = useTranslation();
   
   // Form state management
   const [formData, setFormData] = useState({
@@ -60,19 +64,19 @@ export default function Contact() {
     const newErrors: FormErrors = {};
     
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = t('contact.validation.nameRequired');
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = t('contact.validation.emailRequired');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = t('contact.validation.emailInvalid');
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+      newErrors.message = t('contact.validation.messageRequired');
     } else if (formData.message.length < 10) {
-      newErrors.message = 'Message must be at least 10 characters long';
+      newErrors.message = t('contact.validation.messageLength');
     }
 
     setErrors(newErrors);
@@ -171,7 +175,7 @@ export default function Contact() {
         className="container mx-auto px-4"
       >
         <SectionTitle 
-          title="Contact" 
+          title={t('contact.title')} 
           fromColor="from-emerald-400"
           toColor="to-sky-400"
         />
@@ -186,8 +190,7 @@ export default function Contact() {
             className="space-y-6"
           >
             <p className={`text-lg ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-              I&apos;m always interested in hearing about new projects and opportunities.
-              Feel free to reach out!
+              {t('contact.intro')}
             </p>
 
             <div className="space-y-4">
@@ -236,7 +239,7 @@ export default function Contact() {
                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                   />
                 </svg>
-                <span className="transition-colors duration-300">+966 53 567 6369</span>
+                <span className="transition-colors duration-300">{t('contact.phone')}</span>
               </a>
 
               <div className={`flex items-center space-x-3 ${
@@ -263,7 +266,7 @@ export default function Contact() {
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                <span>Makkah, Saudi Arabia</span>
+                <span>{t('contact.location')}</span>
               </div>
             </div>
           </motion.div>
@@ -282,7 +285,7 @@ export default function Contact() {
               <input
                 type="text"
                 name="user_name"
-                placeholder="Name"
+                placeholder={t('contact.name')}
                 value={formData.name}
                 onChange={handleChange}
                 className={`${inputClasses} ${errors.name ? 'border-red-500 focus:ring-red-500' : ''}`}
@@ -296,7 +299,7 @@ export default function Contact() {
               <input
                 type="email"
                 name="user_email"
-                placeholder="Email"
+                placeholder={t('contact.email')}
                 value={formData.email}
                 onChange={handleChange}
                 className={`${inputClasses} ${errors.email ? 'border-red-500 focus:ring-red-500' : ''}`}
@@ -309,7 +312,7 @@ export default function Contact() {
             <div>
               <textarea
                 name="message"
-                placeholder="Message"
+                placeholder={t('contact.message')}
                 value={formData.message}
                 onChange={handleChange}
                 rows={4}
@@ -330,7 +333,7 @@ export default function Contact() {
               }`}
             >
               <span className={`${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                Send Message
+                {t('contact.send')}
               </span>
               {isSubmitting && (
                 <motion.div 
@@ -351,7 +354,7 @@ export default function Contact() {
                   exit={{ opacity: 0, y: 10 }}
                   className="bg-green-500/10 border border-green-500/20 text-green-500 rounded-lg p-3 text-center"
                 >
-                  Message sent successfully! I&apos;ll get back to you soon.
+                  {t('contact.successMessage')}
                 </motion.div>
               )}
 
@@ -362,7 +365,7 @@ export default function Contact() {
                   exit={{ opacity: 0, y: 10 }}
                   className="bg-red-500/10 border border-red-500/20 text-red-500 rounded-lg p-3 text-center"
                 >
-                  Failed to send message. Please try again or email me directly.
+                  {t('contact.errorMessage')}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -378,8 +381,7 @@ export default function Contact() {
             theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}
         >
-          Feel free to reach out! I&apos;m always open to discussing new projects, creative ideas, or
-          opportunities to be part of your visions.
+          {t('contact.footer')}
         </motion.p>
       </motion.div>
     </section>

@@ -5,6 +5,7 @@ import { useTheme } from '../context/ThemeContext';
 import { FaDownload } from 'react-icons/fa6';
 import React from 'react';
 import SectionTitle from './SectionTitle';
+import { useTranslation } from '../utils/i18n';
 
 /**
  * About Component
@@ -18,6 +19,7 @@ import SectionTitle from './SectionTitle';
  */
 export default function About() {
   const { theme } = useTheme();
+  const { t, language } = useTranslation();
 
   // Animation variants for staggered children animations
   const containerVariants = {
@@ -73,11 +75,17 @@ export default function About() {
   };
 
   return (
-    <section id="about" className="py-20 relative bg-transparent">
-      <div className="container mx-auto px-4">
+    <section id="about" className="py-20 relative overflow-hidden">
+      {/* Background gradient blobs for glassmorphism effect */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+      <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        
         {/* Section title with custom gradient colors */}
         <SectionTitle 
-          title="About Me" 
+          title={t('about.title')} 
           fromColor="from-blue-400"
           toColor="to-blue-600"
         />
@@ -93,71 +101,76 @@ export default function About() {
           {/* Left column: Personal introduction */}
           <div className="space-y-8">
             <motion.div variants={itemVariants} className="space-y-6 text-center md:text-left">
-              {/* Professional title */}
-              <h3 className={`text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r
-                ${theme === 'dark' 
-                  ? 'from-gray-100 to-gray-300' 
-                  : 'from-gray-700 to-gray-900'}`}>
-                Computer Science Graduate & Frontend Developer
-              </h3>
-              
+
               {/* Bio cards */}
               <div className="space-y-4">
                 {/* Introduction card */}
-                <motion.p 
-                  className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
-                    backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
-                    border ${theme === 'dark' ? 'border-gray-700/80' : 'border-gray-200/80'}`}
-                  whileHover={{ scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
+                <motion.div
+                  className="space-y-4"
+                  variants={itemVariants}
                 >
-                  Hello! I&apos;m <span className="font-semibold text-blue-500">Ammar Bin Hussain</span>, 
-                  a Computer Science graduate with First Class Honors from Umm Al-Qura University (UQU). 
-                  I&apos;m passionate about solving real-world problems through web development and creating 
-                  beautiful, functional websites that make a difference.
-                </motion.p>
+                  <motion.p 
+                    className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
+                      backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
+                      border ${theme === 'dark' ? 'border-blue-500/80' : 'border-gray-200/80'} ${language === 'ar' ? 'font-harmattan text-right' : ''}`}
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span dangerouslySetInnerHTML={{ __html: t('about.bio.intro').replace('<span>', '<span class="font-semibold text-blue-500">') }} />
+                  </motion.p>
+                  <motion.p 
+                    className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
+                      backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
+                      border ${theme === 'dark' ? 'border-blue-500/80' : 'border-gray-200/80'} ${language === 'ar' ? 'font-harmattan text-right' : ''}`}
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span dangerouslySetInnerHTML={{ __html: t('about.bio.experience').replace('<span>', '<span class="font-semibold text-blue-500">') }} />
+                  </motion.p>
+                </motion.div>
 
-                {/* Additional info card */}
-                <motion.p 
-                  className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
-                    backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
-                    border ${theme === 'dark' ? 'border-gray-700/80' : 'border-gray-200/80'}`}
-                  whileHover={{ scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
+                {/* Skills and soft skills card */}
+                <motion.div
+                  className="space-y-4"
+                  variants={itemVariants}
                 >
-                  As a <span className="font-semibold text-blue-500">self-taught developer</span>, 
-                  I&apos;ve honed my skills in modern web technologies through hands-on experience 
-                  and continuous learning. Beyond coding, I maintain a balanced lifestyle with a 
-                  strong interest in fitness and nutrition, embodying the philosophy of a 
-                  <span className="font-semibold text-blue-500"> healthy mind in a healthy body</span>.
-                </motion.p>
+                  <motion.p 
+                    className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
+                      backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
+                      border ${theme === 'dark' ? 'border-blue-500/80' : 'border-gray-200/80'} ${language === 'ar' ? 'font-harmattan text-right' : ''}`}
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span dangerouslySetInnerHTML={{ __html: t('about.bio.conclusion').replace('<span>', '<span class="font-semibold text-blue-500">') }} />
+                  </motion.p>
+                </motion.div>
               </div>
             </motion.div>
 
             {/* Resume download button */}
-            <motion.div variants={itemVariants} className="flex justify-center md:justify-start">
+            <motion.div variants={itemVariants} className="flex justify-center mt-12 mb-8">
               <motion.a
-                href="/resume/Ammar-Resume.pdf"
+                href="/resume/AmmarBinHussainCV8.pdf"
                 download
-                className={`group relative inline-flex items-center gap-2 px-8 py-3 overflow-hidden
-                  ${theme === 'dark'
-                    ? 'bg-blue-500/20 text-blue-400'
-                    : 'bg-blue-500 text-white'
-                  } rounded-xl text-sm font-medium backdrop-blur-sm
-                  shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300`}
-                whileHover={{ scale: 1.05 }}
+                className={`group relative inline-flex items-center gap-3 px-10 py-4 overflow-hidden
+                  bg-gradient-to-r from-blue-400 to-blue-600 text-white
+                  rounded-xl text-lg font-semibold
+                  shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 border-2 border-white/20`}
+                whileHover={{ scale: 1.05, boxShadow: '0 20px 25px -5px rgba(59, 130, 246, 0.4), 0 8px 10px -6px rgba(59, 130, 246, 0.4)' }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-blue-500/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="absolute inset-0 border border-blue-400/30 rounded-xl group-hover:border-blue-400/50 transition-colors" />
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/30 via-blue-500/30 to-blue-600/30 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity" />
                 <motion.div
                   animate="animate"
                   variants={downloadIconVariants}
                   className="relative z-10"
                 >
-                  <FaDownload className="w-4 h-4" />
+                  <FaDownload className="w-5 h-5" />
                 </motion.div>
-                <span className="relative z-10">View Resume</span>
+                <span className="relative z-10">
+                  {t('about.resume')}
+                </span>
               </motion.a>
             </motion.div>
           </div>
@@ -170,53 +183,79 @@ export default function About() {
             {/* Skills categories */}
             {[
               {
-                title: 'Frontend',
-                items: ['HTML & CSS', 'JavaScript', 'Tailwind CSS', 'Framer']
+                title: t('about.skills.frontend'),
+                icon: <span className="text-blue-500"><i className="fas fa-laptop-code"></i></span>,
+                items: [
+                  t('about.skillItems.javascript'),
+                  t('about.skillItems.html5'),
+                  t('about.skillItems.css3'),
+                  t('about.skillItems.react'),
+                  t('about.skillItems.nextjs'),
+                  t('about.skillItems.tailwind'),
+                ]
               },
               {
-                title: 'Data Analysis & Visualization',
-                items: ['Excel Advanced', 'PowerBI', 'Tableau', 'Python Data Analysis']
+                title: t('about.skills.backend'),
+                icon: <span className="text-purple-500"><i className="fas fa-server"></i></span>,
+                items: [
+                  t('about.skillItems.php'),
+                  t('about.skillItems.nodejs'),
+                  t('about.skillItems.mysql'),
+                  t('about.skillItems.postgresql'),
+                  t('about.skillItems.python')
+                ]
               },
               {
-                title: 'Tools & DevOps',
-                items: ['Git & GitHub', 'VS Code', 'Netlify', 'Cloudflare']
+                title: t('about.skills.tools'),
+                icon: <span className="text-green-500"><i className="fas fa-tools"></i></span>,
+                items: [
+                  t('about.skillItems.git'),
+                  t('about.skillItems.vsCode'),
+                  t('about.skillItems.windowsOS'),
+                  t('about.skillItems.linuxOS'),
+                  t('about.skillItems.powerBi')
+                ]
               },
               {
-                title: 'Digital Marketing & Tools',
-                items: ['SEO', 'Social Media Marketing', 'AI Tools', 'Google Analytics', 'Google Ads']
+                title: t('about.skills.softSkills'),
+                icon: <span className="text-yellow-500"><i className="fas fa-user-friends"></i></span>,
+                items: [
+                  t('about.skillItems.communication'),
+                  t('about.skillItems.problemSolving'),
+                  t('about.skillItems.teamwork'),
+                  t('about.skillItems.adaptability'),
+                  t('about.skillItems.organization')
+                ]
               }
             ].map((section, index) => (
               <motion.div
                 key={section.title}
                 variants={cardVariants}
                 whileHover="hover"
-                className={`relative backdrop-blur-md rounded-xl p-6 
+                className={`relative backdrop-blur-md rounded-2xl p-6 shadow-lg transition-all duration-300
                   ${theme === 'dark' 
-                    ? 'bg-gray-800/30 border-gray-700/50' 
-                    : 'bg-white/30 border-gray-200/50'} 
-                  border overflow-hidden`}
+                    ? 'bg-gray-800/40 border border-gray-700/50'
+                    : 'bg-white/40 border border-gray-200/50'}
+                  overflow-hidden group hover:shadow-xl`}
+                style={{ backdropFilter: 'blur(8px)' }}
               >
-                <div className={`absolute inset-0 bg-gradient-to-br opacity-20
-                  ${index % 2 === 0 
-                    ? 'from-blue-500/20 to-purple-500/20' 
-                    : 'from-purple-500/20 to-blue-500/20'}`} 
-                />
-                <h4 className="font-bold mb-4 text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
-                  {section.title}
-                </h4>
-                <ul className="space-y-3">
-                  {section.items.map((item, i) => (
+                <div className="flex items-center gap-2 mb-4">
+                  {section.icon}
+                  <h4 className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
+                    {section.title}
+                  </h4>
+                </div>
+                <ul className="flex flex-wrap gap-2">
+                  {section.items.map((item) => (
                     <motion.li 
                       key={item}
-                      className="flex items-center space-x-3"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
+                      className={`px-3 py-1 rounded-full text-sm font-medium shadow-sm transition-all duration-200
+                        ${theme === 'dark' ? 'bg-blue-800/60 text-blue-100 border-blue-500 group-hover:bg-blue-700/80' : 'bg-blue-100 text-blue-700 border-blue-400 group-hover:bg-blue-200'}`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.08 }}
                     >
-                      <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                      <span className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                        {item}
-                      </span>
+                      {item}
                     </motion.li>
                   ))}
                 </ul>

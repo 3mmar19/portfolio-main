@@ -1,15 +1,8 @@
-/**
- * Education Component
- * 
- * Displays educational background with animated timeline.
- * Features:
- * - Animated timeline with staggered reveal
- * - Interactive cards with hover effects
- * - Responsive layout for different screen sizes
- * - Theme-aware styling and animations
- */
+
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguageContext } from '../context/LanguageContext';
+import { useTranslation } from '../utils/i18n';
 import { AcademicCapIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import SectionTitle from './SectionTitle';
@@ -37,27 +30,50 @@ const itemVariants = {
   }
 };
 
-// Education timeline data
-const educationData = [
-  {
-    degree: "Bachelor's in Computer Science",
-    school: "Umm Al-Qura University",
-    year: "2019 - 2024",
-    honors: "First Class Honors - GPA: 3.83/4.0",
-    description: "Specialized in software engineering and web development, with a focus on modern technologies and best practices.",
-    courses: [
-      "Data Structures & Algorithms",
-      "Software Engineering",
-      "Web Development",
-      "Database Systems",
-      "Computer Networks",
-      "Operating Systems"
-    ]
-  }
-];
+// Education timeline data will be generated dynamically using translations
+
+// Define education course type
+interface Course {
+  id: string;
+  name: string;
+}
+
+// Define education data type
+interface EducationData {
+  degree: string;
+  school: string;
+  year: string;
+  honors: string;
+  description: string;
+  courses: Course[];
+}
 
 export default function Education() {
   const { theme } = useTheme();
+  const { language } = useLanguageContext();
+  const { t } = useTranslation();
+  
+  // Force component to re-render when language changes
+  const [key, setKey] = React.useState(language);
+  
+  // Create education data dynamically from translations
+  const educationData: EducationData[] = [
+    {
+      degree: t('education.degree'),
+      school: t('education.school'),
+      year: t('education.year'),
+      honors: t('education.honors'),
+      description: t('education.description'),
+      courses: [
+        { id: 'dataStructures', name: t('education.courses.dataStructures') },
+        { id: 'softwareEngineering', name: t('education.courses.softwareEngineering') },
+        { id: 'webDevelopment', name: t('education.courses.webDevelopment') },
+        { id: 'databaseSystems', name: t('education.courses.databaseSystems') },
+        { id: 'computerNetworks', name: t('education.courses.computerNetworks') },
+        { id: 'operatingSystems', name: t('education.courses.operatingSystems') }
+      ]
+    }
+  ];
 
   // Theme-aware styling variables
   const cardBg = theme === 'dark' ? 'bg-gray-900/30 border-gray-700/50' : 'bg-white/80 border-gray-200/50';
@@ -68,8 +84,14 @@ export default function Education() {
   const honorsBg = theme === 'dark' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : 'bg-blue-100 text-blue-800 border-blue-200';
   const tagBg = theme === 'dark' ? 'bg-gray-800/50 border-gray-700/50 text-gray-300' : 'bg-gray-100 border-gray-200 text-gray-700';
 
+  // Re-create education data whenever language changes
+  React.useEffect(() => {
+    // This effect forces a re-render when language changes
+    setKey(language);
+  }, [language]);
+  
   return (
-    <section id="education" className={`py-20 relative`}>
+    <section id="education" className={`py-20 relative`} key={`education-section-${key}`}>
       <div className="absolute inset-0 overflow-hidden">
         <div className={`absolute top-1/4 -left-20 w-72 h-72 ${theme === 'dark' ? 'bg-blue-500/10' : 'bg-blue-100/50'} rounded-full blur-3xl`} />
         <div className={`absolute bottom-1/4 -right-20 w-72 h-72 ${theme === 'dark' ? 'bg-purple-500/10' : 'bg-purple-100/50'} rounded-full blur-3xl`} />
@@ -79,13 +101,14 @@ export default function Education() {
         <div className="container mx-auto px-4">
           {/* Section title */}
           <SectionTitle 
-            title="Education" 
+            title={t('education.title')} 
             fromColor="from-rose-400"
             toColor="to-amber-400"
           />
 
           {/* Timeline container */}
           <motion.div
+            key={`education-content-${key}`}
             variants={containerVariants}
             initial="hidden"
             whileInView="show"
@@ -138,14 +161,14 @@ export default function Education() {
 
                     {/* Key courses */}
                     <div className="w-full">
-                      <h4 className={`text-sm font-semibold ${textColor} mb-4`}>Key Courses:</h4>
+                      <h4 className={`text-sm font-semibold ${textColor} mb-4`}>{t('education.keyCourses')}</h4>
                       <div className="flex flex-wrap justify-center gap-2">
                         {edu.courses.map((course) => (
                           <span
-                            key={course}
+                            key={course.id}
                             className={`px-3 py-1 text-xs rounded-full border transition-colors duration-300 ${tagBg}`}
                           >
-                            {course}
+                            {course.name}
                           </span>
                         ))}
                       </div>
