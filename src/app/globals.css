@@ -26,6 +26,22 @@
   }
 }
 
+/* Prevent global horizontal scrolling */
+@layer base {
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* Utility for horizontally scrollable sections (e.g., Projects) */
+@layer utilities {
+  .x-scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;

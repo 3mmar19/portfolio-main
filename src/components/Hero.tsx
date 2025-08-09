@@ -265,13 +265,14 @@ export default function Hero() {
               />
               
               <FlickerText
-                text={t('hero.availableForWork')}
-                className={`tracking-wide dir-${language === 'ar' ? 'ltr' : 'ltr'}`}
+                text={'Available for work'}
+                className={`tracking-wide`}
                 textColor={theme === 'dark' ? '#34D399' : '#059669'}
                 animationSpeed={1}
                 animationPattern="sequential"
                 repeatBehavior="loop"
                 strokeWidth={1}
+                style={{ direction: 'ltr' }}
               />
 
               {/* Check icon with animation */}

@@ -377,25 +377,25 @@ export default function Projects() {
               </p>
             </div>
           </div>
-        </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
-  return (
+return (
     <section id="projects" className="py-20 relative bg-transparent">
-      <div className="container mx-auto px-4">
-        {/* Desktop View */}
-        <div className="hidden md:block">
-          <SectionTitle 
-            title={language === 'ar' ? 'المشاريع' : 'Projects'}
-            fromColor="from-purple-400"
-            toColor="to-pink-400"
-          />
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-12">
-            {projects.map((project, index) => (
-              <DesktopCard key={project.title} project={project} index={index} />
-            ))}
+    <div className="container mx-auto px-4">
+      {/* Desktop View */}
+      <div className="hidden md:block">
+        <SectionTitle 
+          title={language === 'ar' ? 'المشاريع' : 'Projects'}
+          fromColor="from-purple-400"
+          toColor="to-pink-400"
+        />
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-12">
+          {projects.map((project, index) => (
+            <DesktopCard key={project.title} project={project} index={index} />
+          ))}
           </div>
         </div>
 
