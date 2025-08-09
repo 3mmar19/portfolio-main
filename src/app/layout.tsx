@@ -1,11 +1,6 @@
 'use client';
 
-import { Cormorant_Garamond, Domine, Harmattan, Tajawal } from 'next/font/google';
-import { ThemeProvider, useTheme } from '../context/ThemeContext';
-import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
-import { AnimatePresence } from 'framer-motion';
+import { Domine } from 'next/font/google';
 import StarCursor from '@/components/StarCursor';
 import './globals.css';
 import Providers from './Providers';
@@ -18,15 +13,7 @@ const domine = Domine({
   weight: ['500', '600'], // Load weights used by headings and subheadings
 });
 
-/**
- * RootLayout Component
- * The main layout wrapper for the entire application.
- * Provides:
- * - Theme context
- * - Font configuration
- * - Meta tags
- * - Global styling
- */
+
 export default function RootLayout({
   children,
 }: {
@@ -72,15 +59,15 @@ export default function RootLayout({
       </head>
       {/* Apply global styles and theme-specific classes */}
       <body className={`
-        ${domine.variable} 
+        ${domine.variable}
         overflow-x-hidden
       `} suppressHydrationWarning>
-        <ThemeProvider>
+        <Providers>
           <StarCursor />
           <MainLayoutClient>
             {children}
           </MainLayoutClient>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
