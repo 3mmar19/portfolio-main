@@ -13,6 +13,10 @@ const config: Config = {
         'spin-slow': 'spin 8s linear infinite',
         'float': 'float 6s ease-in-out infinite',
       },
+      fontFamily: {
+        // Map Google font CSS variables to Tailwind utilities
+        domine: ['var(--font-domine)'],
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',

@@ -1,0 +1,128 @@
+{
+  "general": {
+    "english": "English",
+    "arabic": "Arabic"
+  },
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "education": "Education",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "name": "Ammar Bin Hussain",
+    "title": "Frontend Developer & IT Support Specialist",
+    "viewProjects": "View Projects",
+    "letsTalk": "Let's Talk",
+    "availableForWork": "Available for Work",
+    "stats": {
+      "yearsExperience": "Years Experience",
+      "projectsDone": "Projects Done",
+      "technologies": "Technologies"
+    },
+    "techStack": {
+      "windowsOS": "Windows OS",
+      "linuxOS": "Linux OS",
+      "reactjs": "React.js",
+      "customPcBuilding": "Custom PC Building",
+      "javascript": "JavaScript",
+      "python": "Python",
+      "htmlCss": "HTML/CSS",
+      "seo": "SEO"
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "bio": {
+      "intro": "Hi! I'm <span>Ammar Hussain Ahmed</span>, a detail-oriented Frontend Developer & IT Support Specialist (First Class Honors, Umm Al-Qura University, GPA 3.8/4). I'm passionate about building high-quality, interactive user experiences using modern frameworks like React.js and Next.js while maintaining clean, maintainable code within collaborative environments.",
+      "experience": "My professional experience includes working as a Technical Support Specialist with Qatarat App, a backend internship at iDara.NET, and roles in data entry operations. I've developed a strong foundation in both frontend technologies (JavaScript ES6+, HTML5, CSS3, React, Next.js, Tailwind CSS) and backend systems (Node.js, PHP, MySQL). I'm always <span>eager to apply strong skills in JavaScript, HTML/CSS to build/fix UI</span> components and continuously expand my technical knowledge.",
+      "conclusion": "I'm proud of my achievements, including being the Second Winner in the Smart Makkah Hackathon, and completing specialized courses in JavaScript, Data Analysis, and Python. I bring excellent communication skills, problem-solving abilities, and work well under pressure. <span>Let's connect and see how my technical expertise and collaborative approach can help your organization succeed!</span>"
+    },
+    "resume": "View Resume",
+    "skills": {
+      "frontend": "Frontend Development",
+      "backend": "Backend & Databases",
+      "tools": "Tools & Software",
+      "softSkills": "Soft Skills"
+    },
+    "skillItems": {
+      "javascript": "JavaScript (ES6+)",
+      "html5": "HTML5",
+      "css3": "CSS3",
+      "react": "React.js",
+      "nextjs": "Next.js",
+      "tailwind": "Tailwind CSS",
+      "php": "PHP",
+      "python": "Python",
+      "nodejs": "Node.js",
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "git": "Git",
+      "vsCode": "VS Code",
+      "windowsOS": "Windows OS",
+      "linuxOS": "Linux OS",
+      "powerBi": "Power BI",
+      "communication": "Communication",
+      "problemSolving": "Problem Solving",
+      "teamwork": "Teamwork",
+      "adaptability": "Adaptability",
+      "organization": "Organization"
+    }
+  },
+  "education": {
+    "title": "Education",
+    "degree": "Bachelor's in Computer Science",
+    "school": "Umm Al-Qura University",
+    "year": "2019 - 2024",
+    "honors": "First Class Honors - GPA: 3.83/4.0",
+    "description": "Specialized in software engineering and web development, with a focus on modern technologies and best practices.",
+    "keyCourses": "Key Courses:",
+    "courses": {
+      "dataStructures": "Data Structures & Algorithms",
+      "softwareEngineering": "Software Engineering",
+      "webDevelopment": "Web Development",
+      "databaseSystems": "Database Systems",
+      "computerNetworks": "Computer Networks",
+      "operatingSystems": "Operating Systems"
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "viewAll": "View All"
+  },
+  "contact": {
+    "title": "Contact Me",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "intro": "I'm always interested in hearing about new projects and opportunities. Feel free to reach out!",
+    "location": "Makkah, Saudi Arabia",
+    "phone": "+966 53 567 6369",
+    "sending": "Sending...",
+    "successMessage": "Message sent successfully! I'll get back to you soon.",
+    "errorMessage": "Failed to send message. Please try again or email me directly.",
+    "footer": "Feel free to reach out! I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.",
+    "validation": {
+      "nameRequired": "Name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "messageRequired": "Message is required",
+      "messageLength": "Message must be at least 10 characters long"
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 Ammar Bin Hussain. All rights reserved.",
+    "aboutMe": "About Me",
+    "aboutDescription": "Frontend Developer with a passion for creating engaging web experiences",
+    "location": "Makkah, Saudi Arabia",
+    "letsConnect": "Let's Connect",
+    "techStack": "Tech Stack",
+    "frontendTech": "React, Next.js, TypeScript",
+    "backendTech": "Node.js, Express, MongoDB",
+    "madeWith": "Made with",
+    "by": "By Ammar Bin Hussain"
+  }
+}

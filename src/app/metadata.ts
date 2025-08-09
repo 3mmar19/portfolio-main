@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Ammar | Portfolio',
-  description: 'IT Support Technician & Computer Science Graduate',
+  description: 'Frontend Developer & IT Support Specialist',
   icons: {
     icon: [
       {

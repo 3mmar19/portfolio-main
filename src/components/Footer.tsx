@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguageContext } from '../context/LanguageContext';
+import { useTranslation } from '../utils/i18n';
 import { 
   FaGithub, 
   FaLinkedinIn, 
@@ -14,20 +16,45 @@ import {
 import { siteConfig } from '@/config/site';
 import { trackSocialClick } from '@/utils/analytics';
 
-/**
- * Footer Component
- * 
- * A responsive footer section with social links and contact information.
- * Features:
- * - Animated social media links with hover effects
- * - Theme-aware styling
- * - Contact information with icons
- * - Analytics tracking for social clicks
- * - Dynamic copyright year
- */
+
+// Custom hook for scroll animation
+const useScrollAnimation = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          // Once visible, no need to observe anymore
+          if (ref.current) observer.unobserve(ref.current);
+        }
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+        rootMargin: '0px 0px -50px 0px' // Slightly before the element comes into view
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) observer.unobserve(ref.current);
+    };
+  }, []);
+
+  return { ref, isVisible };
+};
+
 const Footer = () => {
   const { theme } = useTheme();
+  const { language } = useLanguageContext();
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
+  const { ref: footerRef, isVisible: footerVisible } = useScrollAnimation();
 
   // Social media links configuration
   const socialLinks = [
@@ -62,33 +89,71 @@ const Footer = () => {
   };
 
   return (
-    <footer className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}`}>
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer 
+      ref={footerRef}
+      className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}  overflow-hidden`}>
+      {/* Background gradient blobs for glass effect */}
+      <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>            
+      <div className="max-w-7xl mx-auto px-4 py-12 relative z-10">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          initial="hidden"
+          animate={footerVisible ? "visible" : "hidden"}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.2
+              }
+            }
+          }}
+        >
           {/* About Section */}
-          <div className="text-center md:text-left">
+          <motion.div 
+            className={`text-center p-6 rounded-xl ${theme === 'dark' ? 'bg-gray-800/70' : 'bg-white/70'} backdrop-blur-lg shadow-lg border ${theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'}`}
+            variants={{
+              hidden: { opacity: 0, y: 50 },
+              visible: { 
+                opacity: 1, 
+                y: 0,
+                transition: { duration: 0.6, ease: "easeOut" }
+              }
+            }}
+            whileHover={{ translateY: -5 }}
+          >
             <motion.h3 
               className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
               whileHover={{ x: 5 }}
             >
-              About Me
+              {t('footer.aboutMe')}
             </motion.h3>
             <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-4`}>
-              Frontend Developer with a passion for creating engaging web experiences
+              {t('footer.aboutDescription')}
             </p>
             <div className={`flex items-center justify-center md:justify-start gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
               <FaMapMarkerAlt className="w-4 h-4 text-red-500" />
-              <span>Makkah, Saudi Arabia</span>
+              <span>{t('footer.location')}</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div className="text-center">
+          <motion.div 
+            className={`text-center p-6 rounded-xl ${theme === 'dark' ? 'bg-gray-800/70' : 'bg-white/70'} backdrop-blur-lg shadow-lg border ${theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'}`}
+            variants={{
+              hidden: { opacity: 0, y: 50 },
+              visible: { 
+                opacity: 1, 
+                y: 0,
+                transition: { duration: 0.6, ease: "easeOut" }
+              }
+            }}
+            whileHover={{ translateY: -5 }}
+          >
             <motion.h3 
               className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
               whileHover={{ x: 5 }}
             >
-              Let's Connect
+              {t('footer.letsConnect')}
             </motion.h3>
             <div className="flex flex-wrap justify-center gap-4">
               {socialLinks.map((social) => (
@@ -97,53 +162,73 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className={`w-10 h-10 rounded-full flex items-center justify-center ${theme === 'dark' ? 'bg-gray-700/80' : 'bg-gray-200/80'} backdrop-blur-sm shadow-lg border ${theme === 'dark' ? 'border-gray-600/30' : 'border-gray-300/30'} ${social.color}`}
                   onClick={() => handleSocialClick(social.name)}
-                  className={`p-3 rounded-full transition-all duration-300 ${
-                    theme === 'dark' 
-                      ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' 
-                      : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
-                  } ${social.color}`}
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Tech Stack */}
-          <div className="text-center md:text-right">
+          <motion.div 
+            className={`text-center p-6 rounded-xl ${theme === 'dark' ? 'bg-gray-800/70' : 'bg-white/70'} backdrop-blur-lg shadow-lg border ${theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'}`}
+            variants={{
+              hidden: { opacity: 0, y: 50 },
+              visible: { 
+                opacity: 1, 
+                y: 0,
+                transition: { duration: 0.6, ease: "easeOut" }
+              }
+            }}
+            whileHover={{ translateY: -5 }}
+          >
             <motion.h3 
               className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
               whileHover={{ x: -5 }}
             >
-              Tech Stack
+              {t('footer.techStack')}
             </motion.h3>
             <div className={`flex flex-col gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              <div className="flex items-center justify-center md:justify-end gap-2">
+              <div className="flex items-center justify-center gap-2">
                 <FaCode className="w-4 h-4 text-blue-500" />
-                <span>React, Next.js, TypeScript</span>
+                <span>{t('footer.frontendTech')}</span>
               </div>
-              <div className="flex items-center justify-center md:justify-end gap-2">
+              <div className="flex items-center justify-center gap-2">
                 <FaCoffee className="w-4 h-4 text-yellow-500" />
-                <span>Node.js, Express, MongoDB</span>
+                <span>{t('footer.backendTech')}</span>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Copyright */}
-        <div className={`mt-8 pt-8 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
+        <motion.div 
+          className={`mt-8 pt-8 border-t ${theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'} rounded-xl p-4 ${theme === 'dark' ? 'bg-gray-800/40' : 'bg-white/40'} backdrop-blur-sm`}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { 
+              opacity: 1, 
+              y: 0,
+              transition: { duration: 0.8, delay: 0.3, ease: "easeOut" }
+            }
+          }}
+          initial="hidden"
+          animate={footerVisible ? "visible" : "hidden"}
+        >
           <div className="flex flex-col md:flex-row items-center justify-between">
             <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              {currentYear} Ammar Bin Hussain. All rights reserved.
+              {t('footer.copyright')}
             </p>
             <motion.p 
               className={`text-sm mt-2 md:mt-0 flex items-center ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
               whileHover={{ scale: 1.05 }}
             >
-              Made with 
+              {t('footer.madeWith')} 
               <motion.span
                 className="mx-1 text-red-500"
                 animate={{ scale: [1, 1.2, 1] }}
@@ -155,10 +240,10 @@ const Footer = () => {
               >
                 <FaHeart className="w-4 h-4 inline" />
               </motion.span>
-              Using 🤖
+              {t('footer.by')}
             </motion.p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

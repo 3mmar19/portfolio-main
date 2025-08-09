@@ -3,12 +3,173 @@
 import { motion } from 'framer-motion';
 import { ArrowDownIcon, FolderIcon } from '@heroicons/react/24/outline';
 import { FaGithub, FaLinkedinIn, FaTwitter, FaWhatsapp } from 'react-icons/fa';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguageContext } from '../context/LanguageContext';
 import { siteConfig } from '@/config/site';
+import { useTranslation } from '../utils/i18n';
+import FlickerText from './FlickerText';
+
+// Simple typewriter effect component for inline text with optional blinking cursor
+type TypewriterProps = {
+  text: string;
+  speed?: number; // ms per character
+  startDelay?: number; // ms before starting
+  cursor?: boolean;
+  dir?: 'ltr' | 'rtl';
+  respectReducedMotion?: boolean;
+  // Optional haptics per character (supported on some mobile browsers)
+  hapticsEnabled?: boolean;
+  hapticsPattern?: number | number[]; // e.g., 8 or [10]
+  hapticsThrottleMs?: number; // minimum ms between vibrations
+};
+
+function Typewriter({ text, speed = 125, startDelay = 200, cursor = true, dir, respectReducedMotion = true, hapticsEnabled = false, hapticsPattern = 8, hapticsThrottleMs = 40 }: TypewriterProps) {
+  const [index, setIndex] = useState(0);
+  const [done, setDone] = useState(false);
+  const lastHapticAt = useRef(0);
+  const prevIndex = useRef(0);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+
+  const playClick = () => {
+    try {
+      // Create or reuse audio context
+      const AC: any = (typeof window !== 'undefined' && ((window as any).AudioContext || (window as any).webkitAudioContext)) || null;
+      if (!AC) return;
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new AC();
+      }
+      const ctx = audioCtxRef.current;
+      if (!ctx) return;
+
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      // Subtle, short click
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(2200, now);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.linearRampToValueAtTime(0.03, now + 0.002);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.06);
+    } catch {}
+  };
+
+  // Reset when text changes
+  useEffect(() => {
+    setIndex(0);
+    setDone(false);
+    prevIndex.current = 0;
+  }, [text]);
+
+  useEffect(() => {
+    // Optionally respect reduced motion preference: show immediately if enabled
+    const reduce = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (respectReducedMotion && reduce) {
+      setIndex(text.length);
+      setDone(true);
+      return;
+    }
+
+    const startTimer = window.setTimeout(() => {
+      const interval = window.setInterval(() => {
+        setIndex((i) => {
+          if (i >= text.length) {
+            window.clearInterval(interval);
+            setDone(true);
+            return i;
+          }
+          return i + 1;
+        });
+      }, speed);
+    }, startDelay);
+
+    return () => {
+      window.clearTimeout(startTimer);
+    };
+  }, [text, speed, startDelay, respectReducedMotion]);
+
+  // Haptic per-character feedback where supported (with reduced-motion gating)
+  useEffect(() => {
+    if (!hapticsEnabled) return;
+    if (typeof window === 'undefined') return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (respectReducedMotion && reduce) {
+      prevIndex.current = index;
+      return;
+    }
+    // Only vibrate on forward progress and not when finished
+    if (index <= prevIndex.current || index > text.length) return;
+
+    const now = Date.now();
+    if (now - lastHapticAt.current < hapticsThrottleMs) {
+      prevIndex.current = index;
+      return;
+    }
+
+    const nav: any = navigator as any;
+    let providedFeedback = false;
+    if (nav && typeof nav.vibrate === 'function') {
+      try {
+        nav.vibrate(hapticsPattern);
+        providedFeedback = true;
+      } catch {}
+    }
+    if (!providedFeedback) {
+      // Fallback to subtle click
+      playClick();
+      providedFeedback = true;
+    }
+
+    if (providedFeedback) {
+      lastHapticAt.current = now;
+    }
+
+    prevIndex.current = index;
+  }, [index, hapticsEnabled, hapticsPattern, hapticsThrottleMs, text.length, respectReducedMotion]);
+
+  return (
+    <span dir={dir} aria-label={text} className="whitespace-pre">
+      {text.slice(0, index)}
+      {cursor && (
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{ duration: 1, repeat: Infinity }}
+          className="inline-block w-0.5 h-[1em] bg-current align-[-0.1em] ml-1"
+          style={{ visibility: done ? 'hidden' : 'visible' }}
+          aria-hidden="true"
+        />
+      )}
+    </span>
+  );
+}
 
 export default function Hero() {
   const { theme } = useTheme();
+  // Use language context directly for language state
+  const { language } = useLanguageContext();
+  // Use translation hook for text translations
+  const { t } = useTranslation();
+
+  // Fun click burst state per stat card index
+  const [bursts, setBursts] = React.useState<Record<number, number[]>>({});
+
+  const triggerBurst = (idx: number) => {
+    const id = Date.now() + Math.floor(Math.random() * 1000);
+    setBursts((prev) => ({ ...prev, [idx]: [...(prev[idx] || []), id] }));
+    // Auto-clean this burst after animation completes
+    window.setTimeout(() => {
+      setBursts((prev) => {
+        const nextArr = (prev[idx] || []).filter((b) => b !== id);
+        const next = { ...prev, [idx]: nextArr };
+        if (nextArr.length === 0) delete next[idx];
+        return next;
+      });
+    }, 900);
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -32,6 +193,19 @@ export default function Hero() {
         stiffness: 100
       }
     }
+  };
+
+  // Staggered animation for tech stack tags
+  const tagsContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.20, delayChildren: 0.3 }
+    }
+  };
+  const tagItemVariants = {
+    hidden: { opacity: 0, y: 10, scale: 0.96 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 350, damping: 20 } }
   };
 
   const socialLinks = [
@@ -78,11 +252,6 @@ export default function Hero() {
               }`}
             />
 
-            {/* Animated ring */}
-            <div className={`absolute -inset-[2px] rounded-full animate-ping opacity-30
-              ${theme === 'dark' ? 'bg-green-400' : 'bg-green-500'}`} 
-            />
-
             {/* Shimmer effect */}
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
@@ -102,7 +271,17 @@ export default function Hero() {
                 }}
               />
               
-              <span className="font-medium tracking-wide">Available for Work</span>
+              <FlickerText
+                text={t('hero.availableForWork')}
+                className={`tracking-wide ${language === 'ar' ? 'font-domine' : ''}`}
+                textColor={theme === 'dark' ? '#34D399' : '#059669'}
+                glowColor={theme === 'dark' ? '#10B981' : '#10B981'}
+                animationSpeed={1}
+                animationPattern="sequential"
+                repeatBehavior="loop"
+                strokeWidth={1.5}
+                glowIntensity={8}
+              />
 
               {/* Check icon with animation */}
               <motion.div
@@ -138,35 +317,53 @@ export default function Hero() {
           variants={itemVariants}
         >
           <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight
-            ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
+            ${theme === 'dark' ? 'text-white' : 'text-gray-800'} ${language === 'ar' ? 'font-domine' : ''}`}
           >
-            Hi, I&apos;m{' '}
+            {t('hero.greeting')}{' '}
             <span className={`relative inline-block ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>
-              Ammar Bin Hussain
-              <span className={`absolute -bottom-2 left-0 w-full h-1 rounded ${
+              <Typewriter 
+                text={t('hero.name')} 
+                dir={language === 'ar' ? 'rtl' : 'ltr'}
+                respectReducedMotion={false}
+                hapticsEnabled={true}
+                hapticsPattern={10}
+                hapticsThrottleMs={60}
+              />
+              <span className={`absolute -bottom-2 ${language === 'ar' ? 'right-0' : 'left-0'} w-full h-1 rounded ${
                 theme === 'dark' ? 'bg-blue-400/30' : 'bg-blue-200/70'
               }`} />
             </span>
           </h1>
-          <p className={`text-lg md:text-xl ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} max-w-2xl mx-auto mb-6`}>
-            IT Support Technician & Computer Science Graduate
+          <p className={`text-lg md:text-xl ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} max-w-2xl mx-auto mb-6 ${language === 'ar' ? 'font-domine' : ''}`}>
+            {t('hero.title')}
           </p>
 
           {/* Tech Stack Tags */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {['Windows OS', 'Linux OS', 'BIOS/UEFI', 'TeamViewer', 'AnyDesk', 'VS Code', 'MySQL', 'Custom PC Building', 'JavaScript', 'Python', 'HTML & CSS', 'Power BI', 'Tableau', 'SEO', 'Google Analytics'].map((tech) => (
-              <span
-                key={tech}
-                className={`px-3 py-1 text-sm rounded-full border-2 font-medium shadow-sm transition-all duration-300 hover:scale-105 ` +
+          <motion.div className="flex flex-wrap justify-center gap-2 mb-8" variants={tagsContainerVariants}>
+            {[
+              { key: 'windowsOS', value: t('hero.techStack.windowsOS') },
+              { key: 'linuxOS', value: t('hero.techStack.linuxOS') },
+              { key: 'reactjs', value: t('hero.techStack.reactjs') },
+              { key: 'customPcBuilding', value: t('hero.techStack.customPcBuilding') },
+              { key: 'javascript', value: t('hero.techStack.javascript') },
+              { key: 'python', value: t('hero.techStack.python') },
+              { key: 'htmlCss', value: t('hero.techStack.htmlCss') },
+              { key: 'seo', value: t('hero.techStack.seo') },
+            ].map((tech) => (
+              <motion.span
+                variants={tagItemVariants}
+                key={tech.key}
+                className={`px-3 py-1 text-sm rounded-full border-2 font-medium shadow-sm transition-all duration-300 hover:scale-105 ${language === 'ar' ? 'font-domine' : ''} ` +
+
                   (theme === 'dark'
                     ? 'bg-blue-800/60 text-blue-100 border-blue-500 hover:bg-blue-700/80'
-                    : 'bg-blue-100 text-blue-700 border-blue-400 hover:bg-blue-200')
-                }
+                    : 'bg-blue-100/60 text-blue-800 border-blue-300 hover:bg-blue-200/80'
+                  )}
               >
-                {tech}
-              </span>
+                {tech.value}
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
 
           {/* Action Buttons */}
           <motion.div 
@@ -183,9 +380,9 @@ export default function Hero() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <FolderIcon className="w-5 h-5 relative z-10 mr-2 group-hover:rotate-6 transition-transform duration-300" />
-              <span className="relative z-10 text-base group-hover:translate-x-1 transition-transform duration-300">
-                View Projects
+              <FolderIcon className="w-5 h-5 relative z-10 mr-2 ml-2 group-hover:rotate-6 transition-transform duration-300" />
+              <span className={`relative z-10 text-base group-hover:translate-x-1 transition-transform duration-300 ${language === 'ar' ? 'font-domine' : ''}`}>
+                {t('hero.viewProjects')}
               </span>
             </motion.a>
 
@@ -201,9 +398,9 @@ export default function Hero() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <FaWhatsapp className="w-5 h-5 relative z-10 mr-2 group-hover:rotate-12 transition-transform duration-300" />
-              <span className="relative z-10 text-base group-hover:translate-x-1 transition-transform duration-300">
-                Let's Talk
+              <FaWhatsapp className="w-5 h-5 relative z-10 mr-2 ml-2 group-hover:rotate-12 transition-transform duration-300" />
+              <span className={`relative z-10 text-base group-hover:translate-x-1 transition-transform duration-300 ${language === 'ar' ? 'font-domine' : ''}`}>
+                {t('hero.letsTalk')}
               </span>
             </motion.a>
           </motion.div>
@@ -214,18 +411,63 @@ export default function Hero() {
             variants={itemVariants}
           >
             {[
-              { value: '1+', label: 'Years Experience' },
-              { value: '10+', label: 'Projects Done' },
-              { value: '7+', label: 'Technologies' }
+              { value: '2+', label: t('hero.stats.yearsExperience') },
+              { value: '10+', label: t('hero.stats.projectsDone') },
+              { value: '7+', label: t('hero.stats.technologies') }
             ].map((stat, index) => (
-              <div 
+              <motion.div
                 key={index}
-                className={`group relative backdrop-blur-sm rounded-lg p-4 text-center border transition-all duration-300
-                  ${theme === 'dark'
-                    ? 'bg-gray-800/30 border-gray-700/50 hover:bg-gray-800/40'
-                    : 'bg-white/60 border-gray-200 hover:bg-white/90 hover:border-gray-300 hover:shadow-sm'
-                  }`}
+                className={`group relative glass rounded-xl p-5 text-center transition-all duration-300 overflow-hidden hover:-translate-y-0.5`}
+                role="button"
+                tabIndex={0}
+                aria-label={typeof stat.label === 'string' ? stat.label : 'Stat card'}
+                onClick={() => triggerBurst(index)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); triggerBurst(index); } }}
+                whileTap={{ scale: 0.97, rotate: -0.5 }}
               >
+                {/* Shine overlay */}
+                <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-white/10 via-white/5 to-transparent dark:from-white/10 dark:via-white/5 dark:to-transparent" />
+                {/* Top edge highlight */}
+                <div className="absolute inset-x-0 top-0 h-px bg-white/20 dark:bg-white/10" />
+                {/* Click burst effects */}
+                <div className="absolute inset-0 pointer-events-none">
+                  {(bursts[index] || []).map((id) => (
+                    <React.Fragment key={id}>
+                      {/* Confetti pieces */}
+                      {Array.from({ length: 12 }).map((_, i) => {
+                        const angle = (i / 12) * Math.PI * 2;
+                        const dist = 60 + Math.random() * 40;
+                        const x = Math.cos(angle) * dist;
+                        const y = Math.sin(angle) * dist;
+                        const rot = Math.random() * 360;
+                        return (
+                          <motion.span
+                            key={`${id}-p-${i}`}
+                            className="absolute left-1/2 top-1/2 w-1.5 h-1.5 rounded-sm"
+                            style={{
+                              transform: 'translate(-50%, -50%)',
+                              background: theme === 'dark'
+                                ? 'linear-gradient(45deg, #60a5fa, #a78bfa)'
+                                : 'linear-gradient(45deg, #3b82f6, #a855f7)'
+                            }}
+                            initial={{ x: 0, y: 0, opacity: 1, scale: 1, rotate: 0 }}
+                            animate={{ x, y, opacity: 0, scale: 0.8, rotate: rot }}
+                            transition={{ duration: 0.8, ease: 'easeOut' }}
+                          />
+                        );
+                      })}
+                      {/* Ripple */}
+                      <motion.span
+                        key={`${id}-ripple`}
+                        className="absolute left-1/2 top-1/2 w-2 h-2 rounded-full bg-white/60 dark:bg-white/30"
+                        style={{ transform: 'translate(-50%, -50%)' }}
+                        initial={{ scale: 0, opacity: 0.6 }}
+                        animate={{ scale: 8, opacity: 0 }}
+                        transition={{ duration: 0.8, ease: 'easeOut' }}
+                      />
+                    </React.Fragment>
+                  ))}
+                </div>
                 <div className="relative z-10">
                   <div className={`text-xl font-semibold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                     {stat.value}
@@ -234,7 +476,7 @@ export default function Hero() {
                     {stat.label}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
 

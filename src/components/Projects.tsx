@@ -17,6 +17,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SectionTitle from './SectionTitle';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import { useTranslation } from '../utils/i18n';
+import { useLanguageContext } from '../context/LanguageContext';
 
 /**
  * Projects Component
@@ -32,6 +34,8 @@ import { FaExternalLinkAlt } from 'react-icons/fa';
 export default function Projects() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { t } = useTranslation();
+  const { language } = useLanguageContext();
 
   useEffect(() => {
     setMounted(true);
@@ -91,7 +95,7 @@ export default function Projects() {
       title: 'Alkian Transport',
       titleAr: 'وكالة الكيان للنقل',
       description: 'Transportation agency providing premium transfer services for Umrah and Hajj pilgrims at competitive prices. AlKian partners with top transport companies to ensure a smooth, safe, and economical journey to the holy sites, maintaining the highest standards of quality and safety.',
-      descriptionAr: 'وكالة الكيان توفر خدمات نقل متميزة للمعتمرين والحجاج بأسعار تنافسية من خلال التعاقد مع أفضل شركات النقل. نجعل رحلتك إلى المشاعر المقدسة أكثر سلاسة واقتصادية مع ضمان أعلى معايير الجودة والسلامة.',
+      descriptionAr: 'وكالة الكيان توفر خدمات نقل متميزة للمعتمرين والحجاج بأسعار تنافسية من خلال التعاقد مع أفضل شركات النقل. نجعل رحلتك إلى المشاعر المقدسة أكثر سلاسة واقتصادية مع ضمان أعلى معايير الجودة والسلامة.',     
       image: '/projects/alkian.png',
       tags: ['Myfatoorah', 'PostgreSQL', 'Dashboard', 'Umrah', 'Hajj'],
       link: 'https://alkian.sa/',
@@ -250,13 +254,13 @@ export default function Projects() {
               <h3 className={`text-lg font-bold transition-all duration-300 line-clamp-1 ${
                 theme === 'dark' ? 'text-white group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-600'
               }`}>
-                {project.title}
+                {language === 'ar' ? project.titleAr : project.title}
               </h3>
 
               <p className={`text-sm line-clamp-2 transition-all duration-300 ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                {project.description}
+                {language === 'ar' ? project.descriptionAr : project.description}
               </p>
             </div>
           </div>
@@ -295,7 +299,7 @@ export default function Projects() {
                       ? 'bg-blue-400/20 text-blue-400 border border-blue-400/30' 
                       : 'bg-blue-500/20 text-blue-500 border border-blue-500/30'
                   }`}>
-                    Latest
+                    {language === 'ar' ? 'الأحدث' : 'Latest'}
                   </div>
                 )}
                 
@@ -310,12 +314,12 @@ export default function Projects() {
                   <h3 className={`text-lg font-bold ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
                   }`}>
-                    {project.title}
+                    {language === 'ar' ? project.titleAr : project.title}
                   </h3>
                   <p className={`text-[11px] tracking-wide font-medium ${
                     theme === 'dark' ? 'text-blue-400/80' : 'text-blue-500/80'
                   }`}>
-                    ↗ Tap image to visit project
+                    {language === 'ar' ? '↗ اضغط على الصورة لزيارة المشروع' : '↗ Tap image to visit project'}
                   </p>
                 </div>
               </div>
@@ -369,7 +373,7 @@ export default function Projects() {
               <p className={`text-sm line-clamp-3 ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                {project.description}
+                {language === 'ar' ? project.descriptionAr : project.description}
               </p>
             </div>
           </div>
@@ -384,7 +388,7 @@ export default function Projects() {
         {/* Desktop View */}
         <div className="hidden md:block">
           <SectionTitle 
-            title="Projects"
+            title={language === 'ar' ? 'المشاريع' : 'Projects'}
             fromColor="from-purple-400"
             toColor="to-pink-400"
           />
@@ -402,7 +406,7 @@ export default function Projects() {
               <li className="sticky top-0 pt-8">
                 <div className={`pt-8`}>
             <SectionTitle 
-              title="Projects"
+              title={language === 'ar' ? 'المشاريع' : 'Projects'}
               fromColor="from-purple-400"
               toColor="to-pink-400"
             />
