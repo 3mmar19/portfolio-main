@@ -427,7 +427,8 @@ return (
                   <MobileCard project={project} index={index} />
                 </li>
               ))}
-              <li style={{ height: '30vh' }} aria-hidden="true" />
+              {/* Responsive spacer: smaller on mobile to avoid extra blank space after footer */}
+              <li className="h-[8vh] md:h-[24vh]" aria-hidden="true" />
             </ul>
           </div>
         </div>
