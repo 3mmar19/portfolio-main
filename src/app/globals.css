@@ -23,14 +23,7 @@
     max-width: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-  }
-}
-
-/* Prevent global horizontal scrolling */
-@layer base {
-  body {
-    overflow-x: hidden;
+    overflow-y: hidden;
   }
 }
 
