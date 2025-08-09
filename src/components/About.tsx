@@ -77,11 +77,11 @@ export default function About() {
 
   return (
     <section id="about" className="py-20 relative overflow-hidden">
-      {/* Background gradient blobs for glassmorphism effect */}
+      {/* Background gradient blobs for glassmorphism effect
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-      
+       */}
       <div className="container mx-auto px-4 relative z-10">
         
         {/* Section title with custom gradient colors */}

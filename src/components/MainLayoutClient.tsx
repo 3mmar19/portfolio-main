@@ -131,7 +131,7 @@ export default function MainLayoutClient({ children }: { children: React.ReactNo
               </div>
             </motion.div>
 
-            {/* Extra shapes */}
+            {/* Extra shapes
             <motion.div className="absolute w-16 h-16 border-2 border-purple-500/20 rounded-lg" style={{ top: '50%', left: '15%' }} animate={{ y: [0, -20, 0] }} transition={{ rotate: { duration: 3, repeat: Infinity, ease: 'linear' }, y: { duration: 2, repeat: Infinity, ease: 'easeInOut' } }} />
             <motion.div className="absolute w-20 h-20 border-2 border-blue-500/20" style={{ top: '70%', left: '80%', clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }} animate={{ rotate: -360, x: [0, 20, 0] }} transition={{ rotate: { duration: 12, repeat: Infinity, ease: 'linear' }, x: { duration: 6, repeat: Infinity, ease: 'easeInOut' } }} />
             <motion.div className="absolute w-24 h-24 border-2 border-emerald-500/20" style={{ top: '20%', left: '40%', clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)' }} animate={{ rotate: [0, 180, 360], scale: [1, 1.1, 1] }} transition={{ duration: 15, repeat: Infinity, ease: 'linear' }} />
@@ -142,8 +142,8 @@ export default function MainLayoutClient({ children }: { children: React.ReactNo
             <motion.div className="absolute w-32 h-32" style={{ top: '85%', left: '10%', background: 'radial-gradient(circle, rgba(99,102,241,0.2) 1px, transparent 1px)', backgroundSize: '8px 8px' }} animate={{ rotate: [0, 90], scale: [1, 1.1, 1] }} transition={{ duration: 20, repeat: Infinity, ease: 'linear' }} />
             <motion.div className="absolute w-16 h-16" style={{ top: '15%', right: '25%' }} animate={{ rotate: 360, scale: [1, 1.2, 1] }} transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}>
               <div className="absolute w-full h-2 bg-orange-500/20 top-1/2 -translate-y-1/2" />
-              <div className="absolute h-full w-2 bg-orange-500/20 left-1/2 -translate-x-1/2" />
-            </motion.div>
+              <div className="absolute h-full w-2 bg-orange-500/20 left-1/2 -translate-x-1/2" /> */}
+            {/* </motion.div> */}
           </div>
         </>
       )}

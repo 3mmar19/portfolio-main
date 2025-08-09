@@ -10,12 +10,10 @@ import { motion, useInView } from 'framer-motion';
 export type FlickerTextProps = {
   text: string;
   textColor?: string; // CSS color
-  glowColor?: string; // CSS color used for glow
   animationSpeed?: number; // multiplier, 1 = default
   animationPattern?: 'sequential' | 'random' | 'sync';
   repeatBehavior?: 'loop' | 'once';
   strokeWidth?: number; // px
-  glowIntensity?: number; // px
   autoPlay?: boolean;
   className?: string;
   style?: React.CSSProperties;
@@ -24,12 +22,10 @@ export type FlickerTextProps = {
 export default function FlickerText({
   text,
   textColor = '#10B981', // emerald-500
-  glowColor = '#34D399',  // emerald-400
   animationSpeed = 1,
   animationPattern = 'sequential',
   repeatBehavior = 'loop',
   strokeWidth = 1.5,
-  glowIntensity = 8,
   autoPlay = true,
   className,
   style,
@@ -101,7 +97,7 @@ export default function FlickerText({
           variants={characterVariants}
           initial="initial"
           animate={isPlaying ? 'flicker' : 'initial'}
-          style={{ display: 'inline-block', fontSize: 'inherit', fontWeight: 'inherit', lineHeight: 'inherit', letterSpacing: 'inherit', fontFamily: 'inherit', whiteSpace: 'pre' }}
+          style={{ display: 'inline-block', fontSize: '0.8rem', fontWeight: 'small', lineHeight: 'inherit', letterSpacing: 'inherit', fontFamily: 'inherit', whiteSpace: 'pre' }}
         >
           {c.ch}
         </motion.span>

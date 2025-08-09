@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowDownIcon, FolderIcon } from '@heroicons/react/24/outline';
+import { FolderIcon } from '@heroicons/react/24/outline';
 import { FaGithub, FaLinkedinIn, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '../context/ThemeContext';
@@ -244,13 +244,6 @@ export default function Hero() {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            {/* Gradient background effect */}
-            <div className={`absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-500
-              ${theme === 'dark'
-                ? 'from-green-500/10 via-green-400/5 to-green-500/10'
-                : 'from-green-100/50 via-green-50/30 to-green-100/50'
-              }`}
-            />
 
             {/* Shimmer effect */}
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
@@ -273,14 +266,12 @@ export default function Hero() {
               
               <FlickerText
                 text={t('hero.availableForWork')}
-                className={`tracking-wide ${language === 'ar' ? 'font-domine' : ''}`}
+                className={`tracking-wide`}
                 textColor={theme === 'dark' ? '#34D399' : '#059669'}
-                glowColor={theme === 'dark' ? '#10B981' : '#10B981'}
                 animationSpeed={1}
                 animationPattern="sequential"
                 repeatBehavior="loop"
-                strokeWidth={1.5}
-                glowIntensity={8}
+                strokeWidth={1}
               />
 
               {/* Check icon with animation */}
@@ -498,22 +489,6 @@ export default function Hero() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {/* Gradient overlay for dark theme */}
-                {theme === 'dark' && (
-                  <>
-                    {/* Animated gradient background */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10" />
-                    </div>
-                    
-                    {/* Glow effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300" />
-                    
-                    {/* Moving shine effect */}
-                    <div className="absolute inset-0 translate-x-full group-hover:translate-x-[-175%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                  </>
-                )}
-
                 {/* Icon container */}
                 <div className="relative z-10">
                   <Icon className={`w-5 h-5 transition-all duration-300 ${
