@@ -207,7 +207,7 @@ interface NavLinkProps {
  */
 const NavLink: React.FC<NavLinkProps> = ({ item, isMobile = false, activeSection, onMobileClick }) => {
   const { theme } = useTheme();
-  const { language, t } = useTranslation();
+  const { language } = useTranslation();
   const themeClasses = getThemeClasses(theme);
   const isActive = activeSection === item.href.substring(1);
   

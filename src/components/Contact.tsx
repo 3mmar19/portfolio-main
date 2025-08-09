@@ -30,6 +30,7 @@ type FormErrors = {
  */
 export default function Contact() {
   const { theme } = useTheme();
+  const { language } = useLanguageContext();
   const { t } = useTranslation();
 
   
