@@ -58,10 +58,7 @@ export default function RootLayout({
         <link rel="canonical" href="https://3mmar.info" />
       </head>
       {/* Apply global styles and theme-specific classes */}
-      <body className={`
-        ${domine.variable}
-        overflow-x-hidden
-      `} suppressHydrationWarning>
+      <body className={`${domine.variable} w-full m-0 p-0`} suppressHydrationWarning>
         <Providers>
           <StarCursor />
           <MainLayoutClient>

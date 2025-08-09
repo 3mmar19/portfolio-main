@@ -266,7 +266,7 @@ export default function Hero() {
               
               <FlickerText
                 text={t('hero.availableForWork')}
-                className={`tracking-wide`}
+                className={`tracking-wide dir-${language === 'ar' ? 'ltr' : 'ltr'}`}
                 textColor={theme === 'dark' ? '#34D399' : '#059669'}
                 animationSpeed={1}
                 animationPattern="sequential"
@@ -407,7 +407,7 @@ export default function Hero() {
             ].map((stat, index) => (
               <motion.div
                 key={index}
-                className={`group relative glass rounded-xl p-5 text-center transition-all duration-300 overflow-hidden hover:-translate-y-0.5`}
+                className={`group relative glass rounded-xl p-5 text-center transition-all duration-300 overflow-hidden hover:-translate-y-0.5 ${theme === 'light' ? 'shadow-md hover:shadow-lg' : ''}`}
                 role="button"
                 tabIndex={0}
                 aria-label={typeof stat.label === 'string' ? stat.label : 'Stat card'}

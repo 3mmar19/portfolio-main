@@ -64,15 +64,15 @@ export default function MainLayoutClient({ children }: { children: React.ReactNo
   }
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen w-full  max-w-[100vw]">
             {/* Squares Grid Background (always visible) */}
             <div
         aria-hidden
         className="fixed inset-0 pointer-events-none z-0"
         style={{
           backgroundImage: `
-            linear-gradient(${theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(17,24,39,0.12)'} 1px, transparent 1px),
-            linear-gradient(90deg, ${theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(17,24,39,0.12)'} 1px, transparent 1px)
+            linear-gradient(${theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(17,24,39,0.25)'} 1px, transparent 1px),
+            linear-gradient(90deg, ${theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(17,24,39,0.25)'} 1px, transparent 1px)
           `,
           backgroundSize: '32px 32px, 32px 32px',
           backgroundPosition: 'top left',

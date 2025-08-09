@@ -28,7 +28,7 @@ export default function Home() {
           ar: "عمار بن حسين - مطور واجهات أمامية وأخصائي دعم تقني. استكشف معرض أعمالي الذي يضم مشاريع في تطوير الويب، الدعم التقني، تجميع وبناء PC، تحليل البيانات، والتسويق الرقمي."
         }}
       />
-      <main className={`min-h-screen bg-gradient-to-b ${bgGradient}`}>
+      <main className={`min-h-screen w-full bg-gradient-to-b ${bgGradient}`}>
         <Navbar />
         <Hero />
         <About />
