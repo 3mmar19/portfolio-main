@@ -216,11 +216,11 @@ export default function Hero() {
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden py-20 px-4" id="home">
-      {/* Background decorative elements */}
+      {/* Background decorative elements
       <div className="absolute inset-0 overflow-hidden">
         <div className={`absolute top-1/4 -left-12 w-64 h-64 rounded-full ${theme === 'dark' ? 'bg-blue-500/5' : 'bg-blue-100/50'} blur-3xl`} />
         <div className={`absolute bottom-1/4 -right-12 w-64 h-64 rounded-full ${theme === 'dark' ? 'bg-purple-500/5' : 'bg-purple-100/50'} blur-3xl`} />
-      </div>
+      </div> */}
 
       {/* Main content container */}
       <motion.div

@@ -17,7 +17,6 @@ import { useLanguageContext } from '../context/LanguageContext';
 import { useTranslation } from '../utils/i18n';
 import LanguageSwitcher from './LanguageSwitcher';
 
-
 /**
  * Interface for navigation items
  * Defines the structure for each navigation link
@@ -207,7 +206,7 @@ interface NavLinkProps {
  */
 const NavLink: React.FC<NavLinkProps> = ({ item, isMobile = false, activeSection, onMobileClick }) => {
   const { theme } = useTheme();
-  const { language } = useLanguageContext();
+  const { language, t } = useTranslation();
   const themeClasses = getThemeClasses(theme);
   const isActive = activeSection === item.href.substring(1);
   
@@ -218,7 +217,7 @@ const NavLink: React.FC<NavLinkProps> = ({ item, isMobile = false, activeSection
       onClick={onMobileClick}
       className={`flex items-center ${isMobile ? 'px-3 py-2 text-base' : 'px-2.5 py-1.5 text-sm'} 
         font-medium rounded-lg transition-all duration-300 
-        ${language === 'ar' ? 'font-domine' : ''} ${themeClasses.inactive} ${isActive ? themeClasses.active : ''}`}
+        ${language === 'ar' ? 'font-harmattan' : ''} ${themeClasses.inactive} ${isActive ? themeClasses.active : ''}`}
       style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}
     >
       <item.icon className={`${isMobile ? 'mr-3 h-6 w-6' : 'mr-1 h-4 w-4'} 
@@ -406,10 +405,6 @@ export default function Navbar() {
                     onMobileClick={() => setIsOpen(false)}
                   />
                 ))}
-                <div className="flex justify-between items-center px-3 py-2">
-                  <LanguageSwitcher isMobile={true} />
-                  <ThemeToggle isMobile={true} />
-                </div>
               </div>
             </motion.div>
           )}

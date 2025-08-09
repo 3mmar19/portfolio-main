@@ -93,7 +93,6 @@ const Footer = () => {
       ref={footerRef}
       className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}  overflow-hidden`}>
       {/* Background gradient blobs for glass effect */}
-      <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>            
       <div className="max-w-7xl mx-auto px-4 py-12 relative z-10">
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-3 gap-8"

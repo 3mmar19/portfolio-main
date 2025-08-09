@@ -92,10 +92,11 @@ export default function Education() {
   
   return (
     <section id="education" className={`py-20 relative`} key={`education-section-${key}`}>
-      <div className="absolute inset-0 overflow-hidden">
+      
+      {/* <div className="absolute inset-0 overflow-hidden">
         <div className={`absolute top-1/4 -left-20 w-72 h-72 ${theme === 'dark' ? 'bg-blue-500/10' : 'bg-blue-100/50'} rounded-full blur-3xl`} />
         <div className={`absolute bottom-1/4 -right-20 w-72 h-72 ${theme === 'dark' ? 'bg-purple-500/10' : 'bg-purple-100/50'} rounded-full blur-3xl`} />
-      </div>
+      </div> */}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="container mx-auto px-4">
