@@ -64,7 +64,7 @@ export default function MainLayoutClient({ children }: { children: React.ReactNo
   }
 
   return (
-    <div className="relative min-h-screen w-full  max-w-[100vw]">
+    <div className="relative min-h-screen w-full">
             {/* Squares Grid Background (always visible) */}
             <div
         aria-hidden

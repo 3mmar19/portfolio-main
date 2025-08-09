@@ -33,7 +33,7 @@ export default function Home() {
         <Hero />
         <About />
         <Education />
-        <Projects />
+        <Projects  />
         <Contact />
       </main>
       <Footer />

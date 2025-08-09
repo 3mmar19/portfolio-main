@@ -400,7 +400,7 @@ return (
         </div>
 
         {/* Mobile View */}
-        <div className="block md:hidden">
+        <div className="block md:hidden overflow-x-visible">
           <div className="mt-12">
             <ul className="list-none p-0">
               <li className="sticky top-0 pt-8">
@@ -428,7 +428,7 @@ return (
                 </li>
               ))}
               {/* Responsive spacer: smaller on mobile to avoid extra blank space after footer */}
-              <li className="h-[8vh] md:h-[24vh]" aria-hidden="true" />
+              <li/>
             </ul>
           </div>
         </div>
