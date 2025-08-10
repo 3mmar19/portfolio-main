@@ -400,7 +400,7 @@ return (
         </div>
 
         {/* Mobile View */}
-        <div className="block md:hidden overflow-x-visible">
+        <div className="block md:hidden">
           <div className="mt-12">
             <ul className="list-none p-0">
               <li className="sticky top-0 pt-8">
