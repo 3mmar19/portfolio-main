@@ -205,7 +205,7 @@ export default function Hero() {
   };
   const tagItemVariants = {
     hidden: { opacity: 0, y: 10, scale: 0.96 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 350, damping: 20 } }
+    visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'decay', stiffness: 350, damping: 20 } }
   };
 
   const socialLinks = [
@@ -216,12 +216,6 @@ export default function Hero() {
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden py-20 px-4" id="home">
-      {/* Background decorative elements
-      <div className="absolute inset-0 overflow-hidden">
-        <div className={`absolute top-1/4 -left-12 w-64 h-64 rounded-full ${theme === 'dark' ? 'bg-blue-500/5' : 'bg-blue-100/50'} blur-3xl`} />
-        <div className={`absolute bottom-1/4 -right-12 w-64 h-64 rounded-full ${theme === 'dark' ? 'bg-purple-500/5' : 'bg-purple-100/50'} blur-3xl`} />
-      </div> */}
-
       {/* Main content container */}
       <motion.div
         className="w-full max-w-3xl mx-auto relative z-10"

@@ -36,16 +36,16 @@
   "about": {
     "title": "About Me",
     "bio": {
-      "intro": "Hi! I'm <span>Ammar Hussain Ahmed</span>, a detail-oriented Frontend Developer & IT Support Specialist (First Class Honors, Umm Al-Qura University, GPA 3.8/4). I'm passionate about building high-quality, interactive user experiences using modern frameworks like React.js and Next.js while maintaining clean, maintainable code within collaborative environments.",
-      "experience": "My professional experience includes working as a Technical Support Specialist with Qatarat App, a backend internship at iDara.NET, and roles in data entry operations. I've developed a strong foundation in both frontend technologies (JavaScript ES6+, HTML5, CSS3, React, Next.js, Tailwind CSS) and backend systems (Node.js, PHP, MySQL). I'm always <span>eager to apply strong skills in JavaScript, HTML/CSS to build/fix UI</span> components and continuously expand my technical knowledge.",
-      "conclusion": "I'm proud of my achievements, including being the Second Winner in the Smart Makkah Hackathon, and completing specialized courses in JavaScript, Data Analysis, and Python. I bring excellent communication skills, problem-solving abilities, and work well under pressure. <span>Let's connect and see how my technical expertise and collaborative approach can help your organization succeed!</span>"
+      "intro": "Hi! I'm <span>Ammar Hussain Ahmed</span>, a Frontend Developer & IT Support Specialist (First Class Honors, Umm Al-Qura University, GPA 3.8/4). I’m passionate about creating high-quality, interactive user experiences with React.js and Next.js, and writing clean, maintainable code in collaborative environments.",
+      "experience": "I have experience as a Technical Support Specialist at Qatarat App, a backend intern at iDara.NET, and in data entry operations. My skills include frontend technologies (JavaScript, React, Next.js, Tailwind CSS) and backend systems (Node.js, PHP, MySQL). <span>I’m always eager to apply my skills to new challenges and keep growing technically.</span>",
+      "conclusion": "I’m proud to be the Second Winner of the Smart Makkah Hackathon and always open to learning new technologies. I bring strong communication, problem-solving skills, flexibility, and the ability to work under pressure. <span>Let’s connect to see how my technical expertise and collaborative approach can lead to success.</span>"
     },
     "resume": "View Resume",
     "skills": {
       "frontend": "Frontend Development",
       "backend": "Backend & Databases",
       "tools": "Tools & Software",
-      "softSkills": "Soft Skills"
+      "softSkills": "Digital Expertise"
     },
     "skillItems": {
       "javascript": "JavaScript (ES6+)",

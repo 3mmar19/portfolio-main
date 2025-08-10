@@ -113,24 +113,29 @@ export default function About() {
                   <motion.p 
                     className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
                       backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
-                      border ${theme === 'dark' ? 'border-blue-500/80' : 'border-gray-200/80'}`}
+                      border ${theme === 'dark' ? 'border-blue-500/80' : 'border-gray-200/80'}
+                      ${language === 'ar' ? 'text-right rtl' : 'text-left ltr'}`}
                     whileHover={{ scale: 1.01 }}
                     transition={{ duration: 0.2 }}
+                    dir={language === 'ar' ? 'rtl' : 'ltr'}
                   >
                     <span dangerouslySetInnerHTML={{ __html: t('about.bio.intro').replace('<span>', '<span class="font-semibold text-blue-500">') }} />
                   </motion.p>
+                  {/* experience */}
                   <motion.p 
                     className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
                       backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
-                      border ${theme === 'dark' ? 'border-blue-500/80' : 'border-gray-200/80'}`}
+                      border ${theme === 'dark' ? 'border-blue-500/80' : 'border-gray-200/80'}
+                      ${language === 'ar' ? 'text-right rtl' : 'text-left ltr'}`}
                     whileHover={{ scale: 1.01 }}
                     transition={{ duration: 0.2 }}
+                    dir={language === 'ar' ? 'rtl' : 'ltr'}
                   >
                     <span dangerouslySetInnerHTML={{ __html: t('about.bio.experience').replace('<span>', '<span class="font-semibold text-blue-500">') }} />
                   </motion.p>
                 </motion.div>
 
-                {/* Skills and soft skills card */}
+                {/* conclusion */}
                 <motion.div
                   className="space-y-4"
                   variants={itemVariants}
@@ -138,49 +143,31 @@ export default function About() {
                   <motion.p 
                     className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} 
                       backdrop-blur-sm rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900/85' : 'bg-white/85'} 
-                      border ${theme === 'dark' ? 'border-blue-500/80' : 'border-gray-200/80'}`}
+                      border ${theme === 'dark' ? 'border-blue-500/80' : 'border-gray-200/80'}
+                      ${language === 'ar' ? 'text-right rtl' : 'text-left ltr'}`}
                     whileHover={{ scale: 1.01 }}
                     transition={{ duration: 0.2 }}
+                    dir={language === 'ar' ? 'rtl' : 'ltr'}
                   >
                     <span dangerouslySetInnerHTML={{ __html: t('about.bio.conclusion').replace('<span>', '<span class="font-semibold text-blue-500">') }} />
                   </motion.p>
                 </motion.div>
               </div>
             </motion.div>
-
-            {/* Resume download button */}
-            <motion.div variants={itemVariants} className="flex justify-center mt-12 mb-8">
-              <motion.a
-                href="/resume/AmmarBinHussainCV8.pdf"
-                download
-                className={`group relative inline-flex items-center gap-3 px-10 py-4 overflow-hidden
-                  bg-gradient-to-r from-blue-400 to-blue-600 text-white
-                  rounded-xl text-lg font-semibold
-                  shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 border-2 border-white/20`}
-                whileHover={{ scale: 1.05, boxShadow: '0 20px 25px -5px rgba(59, 130, 246, 0.4), 0 8px 10px -6px rgba(59, 130, 246, 0.4)' }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/30 via-blue-500/30 to-blue-600/30 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity" />
-                <motion.div
-                  animate="animate"
-                  variants={downloadIconVariants}
-                  className="relative z-10"
-                >
-                  <FaDownload className="w-5 h-5" />
-                </motion.div>
-                <span className="relative z-10">
-                  {t('about.resume')}
-                </span>
-              </motion.a>
-            </motion.div>
           </div>
 
-          {/* Right column: Skills grid with gravity-interactive tags */}
+          {/* Right column: Skills grid with gravity-interactive tags and resume download */}
           <motion.div
             variants={containerVariants}
-            className="grid grid-cols-2 gap-6"
+            className="space-y-6"
           >
+
+            
+            {/* Skills grid */}
+            <motion.div
+              variants={containerVariants}
+              className="grid grid-cols-2 gap-6"
+            >
             {[
               {
                 title: t('about.skills.frontend'),
@@ -246,21 +233,100 @@ export default function About() {
                   </h4>
                 </div>
                 <ul className="flex flex-wrap gap-2">
-                  {section.items.map((item) => (
-                    <motion.li 
-                      key={item}
-                      className={`px-3 py-1 rounded-full text-sm font-medium shadow-sm transition-all duration-200
-                        ${theme === 'dark' ? 'bg-blue-800/60 text-blue-100 border-blue-500 group-hover:bg-blue-700/80' : 'bg-blue-100 text-blue-700 border-blue-400 group-hover:bg-blue-200'}`}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.08 }}
-                    >
-                      {item}
-                    </motion.li>
-                  ))}
+                  {section.items.map((item, idx) => {
+                    // Generate a consistent but random color based on the item name
+                    const itemHash = item.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                    const colorIndex = itemHash % 5; // 5 different color options
+                    
+                    // Color schemes based on the theme
+                    const colors = theme === 'dark' 
+                      ? [
+                          'from-blue-500/30 to-blue-600/20 text-blue-100 border-blue-500/30',
+                          'from-purple-500/30 to-purple-600/20 text-purple-100 border-purple-500/30',
+                          'from-green-500/30 to-green-600/20 text-green-100 border-green-500/30',
+                          'from-cyan-500/30 to-cyan-600/20 text-cyan-100 border-cyan-500/30',
+                          'from-amber-500/30 to-amber-600/20 text-amber-100 border-amber-500/30',
+                        ] 
+                      : [
+                          'from-blue-100/80 to-blue-200/60 text-blue-700 border-blue-200/60',
+                          'from-purple-100/80 to-purple-200/60 text-purple-700 border-purple-200/60',
+                          'from-green-100/80 to-green-200/60 text-green-700 border-green-200/60',
+                          'from-cyan-100/80 to-cyan-200/60 text-cyan-700 border-cyan-200/60',
+                          'from-amber-100/80 to-amber-200/60 text-amber-700 border-amber-200/60',
+                        ];
+                    
+                    return (
+                      <motion.li 
+                        key={item}
+                        className={`group/tag relative flex items-center px-3 py-1.5 rounded-xl text-sm font-medium 
+                          bg-gradient-to-r ${colors[colorIndex]}
+                          backdrop-blur-md shadow-sm border
+                          transition-all duration-300 overflow-hidden
+                          hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400
+                          cursor-default`}
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ delay: idx * 0.05 }}
+                        whileHover={{ y: -2, scale: 1.05 }}
+                        whileTap={{ scale: 0.98 }}
+                        title={item} // Add tooltip
+                      >
+                        {/* Subtle shine effect */}
+                        <span className="absolute inset-0 overflow-hidden">
+                          <span className="absolute -inset-[250%] top-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-20 transform -skew-x-12 animate-[shine_6s_ease-in-out_infinite] group-hover/tag:animate-[shine_2s_ease-in-out_infinite]"></span>
+                        </span>
+                        
+                        {item}
+                      </motion.li>
+                    );
+                  })}
                 </ul>
               </motion.div>
             ))}
+            </motion.div>
+            {/* Resume download button with iOS 26 liquid glass effect */}
+            <motion.div 
+              variants={itemVariants} 
+              className="flex justify-center mb-6"
+            >
+              <motion.a
+                href="/resume/AmmarBinHussainCV8.pdf"
+                download
+                className={`group relative inline-flex items-center gap-3 px-10 py-4 overflow-hidden
+                  ${theme === 'dark' 
+                    ? 'bg-blue-500/15 text-white border-white/10' 
+                    : 'bg-white/40 text-blue-900 border-white/40'
+                  } 
+                  backdrop-blur-xl
+                  rounded-2xl text-lg font-medium
+                  shadow-sm transition-all duration-300 border`}
+                initial={{ y: 0 }}
+                whileHover={{
+                  y: -3,
+                  boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.2)',
+                  backdropFilter: 'blur(16px)',
+                  background: theme === 'dark' ? 'rgba(59, 130, 246, 0.2)' : 'rgba(255, 255, 255, 0.5)'
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {/* Subtle gradient overlay */}
+                <div className={`absolute inset-0 ${theme === 'dark' 
+                  ? 'bg-gradient-to-br from-blue-500/20 to-purple-500/10' 
+                  : 'bg-gradient-to-br from-white/50 to-blue-200/30'} 
+                  opacity-80 group-hover:opacity-100 transition-opacity rounded-2xl`} />
+                
+                <motion.div
+                  animate="animate"
+                  variants={downloadIconVariants}
+                  className="relative z-10"
+                >
+                  <FaDownload className={`w-5 h-5 ${theme === 'dark' ? 'text-white' : 'text-blue-600'}`} />
+                </motion.div>
+                <span className={`relative z-10 ${theme === 'dark' ? 'text-white' : 'text-blue-900'}`}>
+                  {t('about.resume')}
+                </span>
+              </motion.a>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
